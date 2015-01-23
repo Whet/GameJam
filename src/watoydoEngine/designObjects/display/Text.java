@@ -5,7 +5,6 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 
 import watoydoEngine.display.tweens.TweenDefinable;
-import watoydoEngine.fonts.FontList;
 
 public class Text implements Displayable {
 
@@ -17,7 +16,7 @@ public class Text implements Displayable {
 	private Color colour;
 	private TweenDefinable tween;
 	private int z;
-	private float alpha;
+	private double alpha;
 	protected int pointInText;
 	protected double lineY;
 
@@ -157,7 +156,7 @@ public class Text implements Displayable {
 		return 0;
 	}
 
-	public float getAlpha() {
+	public double getAlpha() {
 		return this.alpha;
 	}
 
@@ -218,7 +217,7 @@ public class Text implements Displayable {
 		this.z = z;
 	}
 
-	public void setAlpha(float alpha) {
+	public void setAlpha(double alpha) {
 		this.alpha = alpha;
 	}
 

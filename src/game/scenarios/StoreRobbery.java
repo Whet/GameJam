@@ -10,7 +10,7 @@ import javax.imageio.ImageIO;
 import watoydoEngine.designObjects.display.ButtonSingle;
 import watoydoEngine.io.ReadWriter;
 
-public class BombChoice extends GameChoiceMenu {
+public class StoreRobbery extends GameChoiceMenu {
 
 	@Override
 	public ButtonSingle getOptionOne() throws FileNotFoundException, IOException {
@@ -34,6 +34,11 @@ public class BombChoice extends GameChoiceMenu {
 	public ButtonSingle getOptionFour() throws FileNotFoundException, IOException {
 		return new ButtonSingle(ImageIO.read(ReadWriter.getResourceAsInputStream("buttonPlaceholder.png"))) {
 		};
+	}
+
+	@Override
+	protected String getScenarioName() {
+		return "Sandra Store Scenario";
 	}
 
 }

@@ -1,6 +1,6 @@
 package game;
 
-import game.scenarios.BombChoice;
+import game.scenarios.StoreRobbery;
 
 import java.awt.image.BufferedImage;
 import java.io.FileNotFoundException;
@@ -42,7 +42,7 @@ public class MainMenu implements HardPaneDefineable {
 			
 			@Override
 			public boolean mD(java.awt.Point mousePosition, java.awt.event.MouseEvent e) {
-				ActivePane.getInstance().changeRootCrowd(new Crowd(new BombChoice()));
+				ActivePane.getInstance().changeRootCrowd(new Crowd(new StoreRobbery()));
 				return true;
 			};
 			

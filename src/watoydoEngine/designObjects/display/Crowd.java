@@ -5,6 +5,8 @@ import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.geom.AffineTransform;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -55,7 +57,13 @@ public class Crowd implements Displayable, MouseRespondable, KeyboardRespondable
 		z = 0;
 		actionZ = 0;
 		
-		pane.load(this);
+		try {
+			pane.load(this);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		
 		computeZOrder();
 	}
@@ -81,7 +89,13 @@ public class Crowd implements Displayable, MouseRespondable, KeyboardRespondable
 		this.z = z;
 		actionZ = 0;
 		
-		pane.load(this);
+		try {
+			pane.load(this);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		
 		computeZOrder();
 	}

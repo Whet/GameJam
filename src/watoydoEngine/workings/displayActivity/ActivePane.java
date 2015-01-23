@@ -1,4 +1,5 @@
 package watoydoEngine.workings.displayActivity;
+import game.MainMenu;
 import game.TestFrame;
 
 import java.awt.Color;
@@ -140,7 +141,7 @@ public class ActivePane extends JFrame implements MouseListener, KeyListener, Wi
 			@Override
 			public void run() {
 				// Load the first frame
-				Crowd initialRootCrowd  = new Crowd(new TestFrame());
+				Crowd initialRootCrowd  = new Crowd(new MainMenu());
 				rootCrowd = initialRootCrowd;
 				
 				rootCrowdLoaded = true;

@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 
 import watoydoEngine.display.tweens.TweenDefinable;
+import watoydoEngine.utils.GraphicsFunctions;
 
 public class Text implements Displayable {
 
@@ -16,7 +17,7 @@ public class Text implements Displayable {
 	private Color colour;
 	private TweenDefinable tween;
 	private int z;
-	private double alpha;
+	private float alpha;
 	protected int pointInText;
 	protected double lineY;
 
@@ -66,6 +67,7 @@ public class Text implements Displayable {
 
 	@Override
 	public void drawMethod(Graphics2D drawShape) {
+		drawShape.setComposite(GraphicsFunctions.makeComposite(this.getAlpha()));
 		pointInText = 0;
 		lineY = location[1];
 		drawShape.setColor(colour);
@@ -74,6 +76,7 @@ public class Text implements Displayable {
 		while (pointInText < this.getText().length()) {
 			drawShape.drawString(computeLines(), (int) location[0], (int) lineY);
 		}
+		drawShape.setComposite(GraphicsFunctions.makeComposite(1.0f));
 	}
 
 	protected final String computeLines() {
@@ -156,7 +159,7 @@ public class Text implements Displayable {
 		return 0;
 	}
 
-	public double getAlpha() {
+	public float getAlpha() {
 		return this.alpha;
 	}
 
@@ -217,7 +220,7 @@ public class Text implements Displayable {
 		this.z = z;
 	}
 
-	public void setAlpha(double alpha) {
+	public void setAlpha(float alpha) {
 		this.alpha = alpha;
 	}
 

@@ -1,5 +1,6 @@
 package game;
 
+import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -28,6 +29,8 @@ public abstract class GameChoiceMenu implements HardPaneDefineable {
 
 		GodCollection godCollection = GodCollection.getInstance();
 		
+		final ImageSingle backgroundImage = new ImageSingle(getBackgroundImage());
+		
 		final ImageSingle god1Image = new ImageSingle(getGodImage(godCollection.getGod(0)));
 		final ImageSingle god2Image = new ImageSingle(getGodImage(godCollection.getGod(1)));
 		final ImageSingle god3Image = new ImageSingle(getGodImage(godCollection.getGod(2)));
@@ -37,6 +40,8 @@ public abstract class GameChoiceMenu implements HardPaneDefineable {
 		int screenHeight = ActivePane.getInstance().getHeight();
 
 		final Text titleText = new Text(screenWidth/2 - 200, 40, getScenarioName());
+
+		titleText.setColour(Color.black);
 		
 		god1Image.setLocation(GOD_ICON_SPACING, GOD_ICON_SPACING);
 		god2Image.setLocation(screenWidth - god2Image.getImage().getWidth() - GOD_ICON_SPACING, GOD_ICON_SPACING);
@@ -50,6 +55,8 @@ public abstract class GameChoiceMenu implements HardPaneDefineable {
 		
 		int screenMidX = screenWidth / 2;
 		int buttonWidth = optionOne.getImage().getWidth();
+
+		backgroundImage.setLocation(screenMidX - backgroundImage.getSize()[0] / 2, screenHeight/2 - backgroundImage.getSize()[1] / 2);
 		
 		optionOne.setLocation(screenMidX - buttonWidth - CHOICE_WIDTH_SPACING, screenHeight * CHOICE_SCREEN_PERCENT);
 		optionTwo.setLocation(screenMidX + CHOICE_WIDTH_SPACING, screenHeight * CHOICE_SCREEN_PERCENT);
@@ -57,6 +64,8 @@ public abstract class GameChoiceMenu implements HardPaneDefineable {
 		optionFour.setLocation(screenMidX + CHOICE_WIDTH_SPACING, screenHeight * CHOICE_SCREEN_PERCENT + CHOICE_HEIGHT_SPACING);
 		
 		int startAlpha = 0;
+
+		backgroundImage.setAlpha(startAlpha);
 		
 		god1Image.setAlpha(startAlpha);
 		god2Image.setAlpha(startAlpha);
@@ -69,6 +78,8 @@ public abstract class GameChoiceMenu implements HardPaneDefineable {
 		optionFour.setAlpha(startAlpha);
 		
 		titleText.setAlpha(startAlpha);
+		
+		crowd.addDisplayItem(backgroundImage);
 		
 		crowd.addDisplayItem(god1Image);
 		crowd.addDisplayItem(god2Image);
@@ -106,6 +117,8 @@ public abstract class GameChoiceMenu implements HardPaneDefineable {
 				computeAnimation();
 				
 				titleText.setAlpha(titleAlpha);
+				
+				backgroundImage.setAlpha(titleAlpha);
 				
 				god1Image.setAlpha(god1Alpha);
 				god2Image.setAlpha(god2Alpha);
@@ -183,6 +196,8 @@ public abstract class GameChoiceMenu implements HardPaneDefineable {
 		}, 0, 1);
 	}
 	
+	protected abstract BufferedImage getBackgroundImage();
+
 	protected abstract String getScenarioName();
 	
 	private BufferedImage getGodImage(God god) {

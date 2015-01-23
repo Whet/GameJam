@@ -2,6 +2,7 @@ package game.scenarios;
 
 import game.GameChoiceMenu;
 
+import java.awt.image.BufferedImage;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
@@ -39,6 +40,18 @@ public class StoreRobbery extends GameChoiceMenu {
 	@Override
 	protected String getScenarioName() {
 		return "Sandra Store Scenario";
+	}
+
+	@Override
+	protected BufferedImage getBackgroundImage() {
+		try {
+			return ImageIO.read(ReadWriter.getResourceAsInputStream("backgroundPlaceholder.png"));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 }

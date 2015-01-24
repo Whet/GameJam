@@ -4,21 +4,19 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Point;
-import java.awt.Stroke;
-import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import javax.imageio.ImageIO;
 
-import oracle.jrockit.jfr.ActiveRecordingEvent;
-
 import watoydoEngine.designObjects.actions.ActionRegion;
-import watoydoEngine.designObjects.actions.KeyboardHandler;
+import watoydoEngine.designObjects.display.ButtonMulti;
 import watoydoEngine.designObjects.display.ButtonSingle;
 import watoydoEngine.designObjects.display.Crowd;
 import watoydoEngine.designObjects.display.ImageSingle;
@@ -31,12 +29,18 @@ import watoydoEngine.workings.displayActivity.ActivePane;
 
 public abstract class GameChoiceMenu implements HardPaneDefineable {
 
-	private static final int GOD_ICON_SPACING = 100;
 	private static final int CHOICE_WIDTH_SPACING = 10;
 	private static final int CHOICE_HEIGHT_SPACING = 60;
 	private static final double CHOICE_SCREEN_PERCENT = 0.8;
 	
 	protected ImageSingle textBackdrop;
+	
+	public int choicesMade = 0;
+	
+	GodButton god1Image;
+	GodButton god2Image;
+	GodButton god3Image;
+	GodButton god4Image;
 	
 	public GameChoiceMenu() {
 		
@@ -70,9 +74,21 @@ public abstract class GameChoiceMenu implements HardPaneDefineable {
 		final TurnProcess turnProcess = getTurnProcess(storyText);
 		
 		final GodButton god1Image = getGodButton(turnProcess, gods, 0);
+		this.god1Image = god1Image;
 		final GodButton god2Image = getGodButton(turnProcess, gods, 1);
+		this.god2Image = god2Image;
 		final GodButton god3Image = getGodButton(turnProcess, gods, 2);
+		this.god3Image = god3Image;
 		final GodButton god4Image = getGodButton(turnProcess, gods, 3);
+		this.god4Image = god4Image;
+		
+		List<GodButton> godImages = new ArrayList<>();
+		godImages.add(god1Image);
+		godImages.add(god2Image);
+		godImages.add(god3Image);
+		godImages.add(god4Image);
+		
+		turnProcess.setImages(godImages);
 		
 		final Text titleText = new Text(screenWidth/2 - 180, 60, getScenarioName());
 		
@@ -94,117 +110,6 @@ public abstract class GameChoiceMenu implements HardPaneDefineable {
 		final ChoiceButton optionTwo = getOptionTwo();
 		final ChoiceButton optionThree = getOptionThree();
 		final ChoiceButton optionFour = getOptionFour();
-		
-		KeyboardHandler handler = new KeyboardHandler() {
-			
-			@Override
-			public boolean kD(KeyEvent e) {
-				switch(e.getKeyCode()) {
-					// Q
-					case 81:
-						turnProcess.setCurrentGod(gods[0]);
-						if(turnProcess.applyChoice(0))
-							optionOne.setVisible(false);
-					break;
-					// W
-					case 87:
-						turnProcess.setCurrentGod(gods[0]);
-						if(turnProcess.applyChoice(1))
-							optionTwo.setVisible(false);
-					break;
-					// E
-					case 69:
-						turnProcess.setCurrentGod(gods[0]);
-						if(turnProcess.applyChoice(2))
-							optionThree.setVisible(false);
-					break;
-					// R
-					case 82:
-						turnProcess.setCurrentGod(gods[0]);
-						if(turnProcess.applyChoice(3))
-							optionFour.setVisible(false);
-					break;
-					
-					// Z
-					case 90:
-						turnProcess.setCurrentGod(gods[1]);
-						if(turnProcess.applyChoice(0))
-							optionOne.setVisible(false);
-					break;
-					// X
-					case 88:
-						turnProcess.setCurrentGod(gods[1]);
-						if(turnProcess.applyChoice(1))
-							optionTwo.setVisible(false);
-					break;
-					// C
-					case 67:
-						turnProcess.setCurrentGod(gods[1]);
-						if(turnProcess.applyChoice(2))
-							optionThree.setVisible(false);
-					break;
-					// V
-					case 86:
-						turnProcess.setCurrentGod(gods[1]);
-						if(turnProcess.applyChoice(3))
-							optionFour.setVisible(false);
-					break;
-					
-					// O
-					case 79:
-						turnProcess.setCurrentGod(gods[2]);
-						if(turnProcess.applyChoice(0))
-							optionOne.setVisible(false);
-					break;
-					// P
-					case 80:
-						turnProcess.setCurrentGod(gods[2]);
-						if(turnProcess.applyChoice(1))
-							optionTwo.setVisible(false);
-					break;
-					// [
-					case 91:
-						turnProcess.setCurrentGod(gods[2]);
-						if(turnProcess.applyChoice(2))
-							optionThree.setVisible(false);
-					break;
-					// ]
-					case 93:
-						turnProcess.setCurrentGod(gods[2]);
-						if(turnProcess.applyChoice(3))
-							optionFour.setVisible(false);
-					break;
-					
-					// M
-					case 77:
-						turnProcess.setCurrentGod(gods[3]);
-						if(turnProcess.applyChoice(0))
-							optionOne.setVisible(false);
-					break;
-					// ,
-					case 44:
-						turnProcess.setCurrentGod(gods[3]);
-						if(turnProcess.applyChoice(1))
-							optionTwo.setVisible(false);
-					break;
-					// .
-					case 46:
-						turnProcess.setCurrentGod(gods[3]);
-						if(turnProcess.applyChoice(2))
-							optionThree.setVisible(false);
-					break;
-					// /
-					case 47:
-						turnProcess.setCurrentGod(gods[3]);
-						if(turnProcess.applyChoice(3))
-							optionFour.setVisible(false);
-					break;
-				}
-				return true;
-			}
-			
-		};
-		crowd.addKeyListener(handler);
 		
 		int screenMidX = screenWidth / 2;
 		int buttonWidth = optionOne.getImage().getWidth();
@@ -332,13 +237,8 @@ public abstract class GameChoiceMenu implements HardPaneDefineable {
 								}
 								
 								if(Maths.getDistance(god1Image.getLocation()[0], god1Image.getLocation()[1], 38, 43) < 10) {
-									try {
-										god1Image.setImage(ImageIO.read(ReadWriter.getResourceAsInputStream("butterIcon.png")));
-									} catch (FileNotFoundException e) {
-										e.printStackTrace();
-									} catch (IOException e) {
-										e.printStackTrace();
-									}
+									god1Image.setImage(getGodIcon(gods[0]));
+//									god1Image.setActive(true);
 									god1Timer.cancel();
 									startTimer2();
 								}
@@ -389,13 +289,8 @@ public abstract class GameChoiceMenu implements HardPaneDefineable {
 						}
 						
 						if(Maths.getDistance(god2Image.getLocation()[0], god2Image.getLocation()[1], ActivePane.getInstance().getWidth()- 200, 43) < 10) {
-							try {
-								god2Image.setImage(ImageIO.read(ReadWriter.getResourceAsInputStream("debaucheryIcon.png")));
-							} catch (FileNotFoundException e) {
-								e.printStackTrace();
-							} catch (IOException e) {
-								e.printStackTrace();
-							}
+							god2Image.setImage(getGodIcon(gods[1]));
+//							god2Image.setActive(true);
 							godtimer.cancel();
 							startTimer3();
 						}
@@ -412,6 +307,12 @@ public abstract class GameChoiceMenu implements HardPaneDefineable {
 			}
 			
 			public void startTimer3() {
+				
+				if(gods.length == 2) {
+					showOptions();
+					return;
+				}
+				
 				final Timer godtimer = new Timer();
 				godtimer.schedule(new TimerTask() {
 
@@ -440,13 +341,8 @@ public abstract class GameChoiceMenu implements HardPaneDefineable {
 						}
 						
 						if(Maths.getDistance(god3Image.getLocation()[0], god3Image.getLocation()[1], 38,540) < 10) {
-							try {
-								god3Image.setImage(ImageIO.read(ReadWriter.getResourceAsInputStream("fireIcon.png")));
-							} catch (FileNotFoundException e) {
-								e.printStackTrace();
-							} catch (IOException e) {
-								e.printStackTrace();
-							}
+							god3Image.setImage(getGodIcon(gods[2]));
+//							god3Image.setActive(true);
 							godtimer.cancel();
 							startTimer4();
 						}
@@ -463,6 +359,12 @@ public abstract class GameChoiceMenu implements HardPaneDefineable {
 			}
 			
 			public void startTimer4() {
+				
+				if(gods.length == 3) {
+					showOptions();
+					return;
+				}
+				
 				final Timer godtimer = new Timer();
 				godtimer.schedule(new TimerTask() {
 
@@ -491,14 +393,10 @@ public abstract class GameChoiceMenu implements HardPaneDefineable {
 						}
 						
 						if(Maths.getDistance(god4Image.getLocation()[0], god4Image.getLocation()[1], 1080, 540) < 10) {
-							try {
-								god4Image.setImage(ImageIO.read(ReadWriter.getResourceAsInputStream("motionIcon.png")));
-							} catch (FileNotFoundException e) {
-								e.printStackTrace();
-							} catch (IOException e) {
-								e.printStackTrace();
-							}
+							god4Image.setImage(getGodIcon(gods[3]));
+//							god4Image.setActive(true);
 							godtimer.cancel();
+							showOptions();
 						}
 						else {
 							if(godAlpha < 1)
@@ -506,6 +404,55 @@ public abstract class GameChoiceMenu implements HardPaneDefineable {
 							
 							if(godAlpha > 1)
 								godAlpha = 1;
+						}
+					}
+					
+				}, 0, 1);
+			}
+			
+			private void showOptions() {
+				
+				god1Image.setScale(0.4);
+				
+				System.out.println("SHOWING OPTIONS");
+				final Timer animationTimer = new Timer();
+				
+				animationTimer.scheduleAtFixedRate(new TimerTask() {
+					
+					private int milliseconds = 0;
+					
+					private float optionAlpha = 0;
+					
+					@Override
+					public void run() {
+						milliseconds++;
+						computeAnimation();
+						
+						optionOne.setAlpha(optionAlpha);
+						optionTwo.setAlpha(optionAlpha);
+						optionThree.setAlpha(optionAlpha);
+						optionFour.setAlpha(optionAlpha);
+						
+					}
+
+					private final float fadeInRate = 0.001f;
+					
+					private void computeAnimation() {
+						if(milliseconds > 1000) {
+							if(optionAlpha < 1)
+								optionAlpha +=fadeInRate;
+							if(optionAlpha > 1)
+								optionAlpha = 1;
+							
+							optionAlpha += 0.0008f;
+						}
+						
+						if(optionAlpha >= 1) {
+							animationTimer.cancel();
+							titleText.setAlpha(1f);
+//							titleText.setVisible(true);
+							storyText.setAlpha(1f);
+//							storyText.setVisible(true);
 						}
 					}
 					
@@ -616,6 +563,41 @@ public abstract class GameChoiceMenu implements HardPaneDefineable {
 		}
 		return null;
 	}
+	
+	private BufferedImage getGodIcon(God god) {
+		
+		String filename = "";
+		
+		switch(god) {
+		case butter:
+			filename = "butterIcon.png";
+			break;
+		case debauchery:
+			filename = "debaucheryIcon.png";
+			break;
+		case fire:
+			filename = "fireIcon.png";
+			break;
+		case motion:
+			filename = "motionIcon.png";
+			break;
+		case unselected:
+			break;
+		
+		}
+		
+		try {
+			BufferedImage read = ImageIO.read(ReadWriter.getResourceAsInputStream(filename));
+
+		    return read;
+		
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 
 	public abstract String getStartText();
 	
@@ -627,7 +609,7 @@ public abstract class GameChoiceMenu implements HardPaneDefineable {
 	
 	public abstract ChoiceButton getOptionFour() throws FileNotFoundException, IOException;
 	
-	private static class GodButton extends ButtonSingle {
+	public static class GodButton extends ButtonSingle {
 
 		private TurnProcess turnProcess;
 		private God god;
@@ -641,12 +623,6 @@ public abstract class GameChoiceMenu implements HardPaneDefineable {
 		
 		@Override
 		public boolean mD(Point mousePosition, MouseEvent e) {
-			if(turnProcess.setCurrentGod(god)) {
-				System.out.println("CURRENT GOD " + god.toString());
-			}
-			else {
-				System.out.println("ALREADY CHOSE " + god.toString());
-			}
 			return true;
 		}
 		
@@ -661,13 +637,13 @@ public abstract class GameChoiceMenu implements HardPaneDefineable {
 		}
 	}
 	
-	public static class ChoiceButton extends ButtonSingle {
+	public static class ChoiceButton extends ButtonMulti {
 		
 		private Text text;
 		private TurnProcess turnProcess;
 		private int choice;
 		
-		public ChoiceButton(String text, int choice, BufferedImage image) {
+		public ChoiceButton(String text, int choice, BufferedImage[] image) {
 			super(image);
 			this.choice = choice;
 			this.text = new Text(this.getLocation()[0] + 5, this.getLocation()[1] + this.getSize()[1] - 10, text);

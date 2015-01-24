@@ -1,5 +1,6 @@
 package game;
 
+import game.GameChoiceMenu.GodButton;
 import game.parser.ObjectGodPair;
 import game.parser.Parser;
 
@@ -18,6 +19,8 @@ public class TurnProcess {
 	private List<God> takenTurns;
 	private List<Integer> takenChoices;
 	
+	private God[] gods;
+	
 	private God currentGod;
 	private int stage;
 	private final int PLAYER_COUNT;
@@ -29,8 +32,11 @@ public class TurnProcess {
 	private Set<Displayable> others;
 	private int storyLength;
 	private ImageSingle backGround;
+	private List<GodButton> godImages;
 	
-	public TurnProcess(ImageSingle background, int playerCount, Set<Displayable> others, String file) {
+	public TurnProcess(God[] gods, ImageSingle background, int playerCount, Set<Displayable> others, String file) {
+		
+		this.gods = gods;
 		
 		this.backGround = background;
 		
@@ -40,7 +46,7 @@ public class TurnProcess {
 		
 		this.storyLength = 0;
 		this.stage = 0;
-		currentGod = God.unselected;
+		this.currentGod = gods[0];
 		
 		takenChoices = new ArrayList<>();
 		takenTurns = new ArrayList<>();
@@ -48,20 +54,6 @@ public class TurnProcess {
 		parser = new Parser(new File(file));
 	}
 
-	public God getCurrentGod() {
-		return currentGod;
-	}
-
-	public boolean setCurrentGod(God currentGod) {
-		
-		if(!this.takenTurns.contains(currentGod)) {
-			this.currentGod = currentGod;
-			return true;
-		}
-		
-		return false;
-	}
-	
 	public boolean applyChoice(int choiceNumber) {
 		
 		if(this.currentGod == God.unselected) {
@@ -82,9 +74,19 @@ public class TurnProcess {
 		takenTurns.add(currentGod);
 		takenChoices.add(choiceNumber);
 		
-		// Or auto choose next god
-		currentGod = God.unselected;
-
+		for(int i = 0; i < gods.length; i++) {
+			godImages.get(i).setScale(0.3);
+		}
+		for(int i = 0; i < gods.length; i++) {
+			if(gods[i] == currentGod && i + 1 < gods.length) {
+				currentGod = gods[i + 1];
+				
+				godImages.get(i + 1).setScale(godImages.get(i).getScale() + 0.1);
+				
+				break;
+			}
+		}
+		
 		if(this.takenChoices.size() == PLAYER_COUNT) {
 			updateStory();
 		}
@@ -114,6 +116,8 @@ public class TurnProcess {
 		}
 		
 		storyText.setText(this.getStory());
+		storyText.setAlpha(1);
+		storyText.setVisible(true);
 	}
 
 	private void hideAll() {
@@ -173,5 +177,9 @@ public class TurnProcess {
 	public void setText(Text storyText) {
 		this.storyText = storyText;
 	}
-	
+
+	public void setImages(List<GodButton> godImages) {
+		this.godImages = godImages;
+	}
+
 }

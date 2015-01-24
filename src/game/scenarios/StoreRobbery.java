@@ -29,10 +29,14 @@ public class StoreRobbery extends GameChoiceMenu {
 	public StoreRobbery() {
 		super();
 		try{
-		choiceButton1 = new ChoiceButton("Trolley", 3, ImageIO.read(ReadWriter.getResourceAsInputStream("buttonPlaceholder.png")));
-		choiceButton2 = new ChoiceButton("Robber", 0, ImageIO.read(ReadWriter.getResourceAsInputStream("buttonPlaceholder.png")));
-		choiceButton3 = new ChoiceButton("Clerk", 2, ImageIO.read(ReadWriter.getResourceAsInputStream("buttonPlaceholder.png")));
-		choiceButton4 = new ChoiceButton("Alchohol", 1, ImageIO.read(ReadWriter.getResourceAsInputStream("buttonPlaceholder.png")));
+			
+			BufferedImage buttonUpImage = ImageIO.read(ReadWriter.getResourceAsInputStream("btnUp.png"));
+			BufferedImage buttonDownImage = ImageIO.read(ReadWriter.getResourceAsInputStream("btnDown.png"));
+			
+		choiceButton1 = new ChoiceButton("Trolley", 3, new BufferedImage[]{buttonUpImage, buttonDownImage});
+		choiceButton2 = new ChoiceButton("Robber", 0, new BufferedImage[]{buttonUpImage, buttonDownImage});
+		choiceButton3 = new ChoiceButton("Clerk", 2, new BufferedImage[]{buttonUpImage, buttonDownImage});
+		choiceButton4 = new ChoiceButton("Alcohol", 1, new BufferedImage[]{buttonUpImage, buttonDownImage});
 		}
 		catch(IOException e) {
 			e.printStackTrace();
@@ -45,7 +49,7 @@ public class StoreRobbery extends GameChoiceMenu {
 		others.add(choiceButton3);
 		others.add(choiceButton4);
 		
-		turnProcess = new TurnProcess(textBackdrop, this.getGods().length, others, "solutions.txt");
+		turnProcess = new TurnProcess(this.getGods(), textBackdrop, this.getGods().length, others, "solutions.txt");
 		choiceButton1.setTurnProcess(turnProcess);
 		choiceButton2.setTurnProcess(turnProcess);
 		choiceButton3.setTurnProcess(turnProcess);

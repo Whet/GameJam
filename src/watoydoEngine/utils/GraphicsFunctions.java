@@ -199,6 +199,10 @@ public class GraphicsFunctions {
 	 */
 	public static AlphaComposite makeComposite(float alpha){
 		int type = AlphaComposite.SRC_OVER;
+		
+		if(alpha > 1)
+			return(AlphaComposite.getInstance(type, 1));
+		
 		return(AlphaComposite.getInstance(type, alpha));
 	}
 	

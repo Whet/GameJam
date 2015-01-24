@@ -143,8 +143,6 @@ public class MainForm {
 					File file = new File("solutions.txt");
 					if(!file.exists()) {
 						file.createNewFile();
-					} else {
-						System.out.println("This file exists");
 					}
 					writer = new PrintWriter(new BufferedWriter(new FileWriter(file, true)));
 					writer.println(scenarioNames[scenarioCombo.getSelectedIndex()] + ";" + pairs + ";" + story);

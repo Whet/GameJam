@@ -7,37 +7,65 @@ import game.TurnProcess;
 import java.awt.image.BufferedImage;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.HashSet;
 
 import javax.imageio.ImageIO;
 
+import watoydoEngine.designObjects.display.Displayable;
+import watoydoEngine.designObjects.display.Text;
 import watoydoEngine.io.ReadWriter;
 
 public class StoreRobbery extends GameChoiceMenu {
 
 	private TurnProcess turnProcess;
+	private ChoiceButton choiceButton1;
+	private ChoiceButton choiceButton2;
+	private ChoiceButton choiceButton3;
+	private ChoiceButton choiceButton4;
 
 	public StoreRobbery() {
-		turnProcess = new TurnProcess("dummySolution.txt");
+		try{
+		choiceButton1 = new ChoiceButton("Option One", 0, ImageIO.read(ReadWriter.getResourceAsInputStream("buttonPlaceholder.png")));
+		choiceButton2 = new ChoiceButton("Option Two", 1, ImageIO.read(ReadWriter.getResourceAsInputStream("buttonPlaceholder.png")));
+		choiceButton3 = new ChoiceButton("Option Three", 2, ImageIO.read(ReadWriter.getResourceAsInputStream("buttonPlaceholder.png")));
+		choiceButton4 = new ChoiceButton("Option Four", 3, ImageIO.read(ReadWriter.getResourceAsInputStream("buttonPlaceholder.png")));
+		}
+		catch(IOException e) {
+			e.printStackTrace();
+		}
+		
+		HashSet<Displayable> others = new HashSet<>();
+		
+		others.add(choiceButton1);
+		others.add(choiceButton2);
+		others.add(choiceButton3);
+		others.add(choiceButton4);
+		
+		turnProcess = new TurnProcess(others, "dummySolution.txt");
+		choiceButton1.setTurnProcess(turnProcess);
+		choiceButton2.setTurnProcess(turnProcess);
+		choiceButton3.setTurnProcess(turnProcess);
+		choiceButton4.setTurnProcess(turnProcess);
 	}
 	
 	@Override
 	public ChoiceButton getOptionOne() throws FileNotFoundException, IOException {
-		return new ChoiceButton("Option One", turnProcess, 0, ImageIO.read(ReadWriter.getResourceAsInputStream("buttonPlaceholder.png")));
+		return choiceButton1;
 	}
 
 	@Override
 	public ChoiceButton getOptionTwo() throws FileNotFoundException, IOException {
-		return new ChoiceButton("Option Two", turnProcess, 1, ImageIO.read(ReadWriter.getResourceAsInputStream("buttonPlaceholder.png")));
+		return choiceButton2;
 	}
 
 	@Override
 	public ChoiceButton getOptionThree() throws FileNotFoundException, IOException {
-		return new ChoiceButton("Option Three", turnProcess, 2, ImageIO.read(ReadWriter.getResourceAsInputStream("buttonPlaceholder.png")));
+		return choiceButton3;
 	}
 
 	@Override
 	public ChoiceButton getOptionFour() throws FileNotFoundException, IOException {
-		return new ChoiceButton("Option Four", turnProcess, 3, ImageIO.read(ReadWriter.getResourceAsInputStream("buttonPlaceholder.png")));
+		return choiceButton4;
 	}
 
 	@Override
@@ -63,7 +91,8 @@ public class StoreRobbery extends GameChoiceMenu {
 	}
 
 	@Override
-	protected TurnProcess getTurnProcess() {
+	protected TurnProcess getTurnProcess(Text storyText) {
+		turnProcess.setText(storyText);
 		return turnProcess;
 	}
 

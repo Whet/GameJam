@@ -30,23 +30,22 @@ public abstract class GameChoiceMenu implements HardPaneDefineable {
 	@Override
 	public void load(Crowd crowd) throws FileNotFoundException, IOException {
 
-		TurnProcess turnProcess = getTurnProcess();
-		
 		God[] gods = getGods();
 		
 		final ImageSingle backgroundImage = new ImageSingle(getBackgroundImage());
+
+		int screenWidth = ActivePane.getInstance().getWidth();
+		int screenHeight = ActivePane.getInstance().getHeight();
+		
+		final Text storyText = new Text(screenWidth/2 - 200, 200);
+		TurnProcess turnProcess = getTurnProcess(storyText);
 		
 		final GodButton god1Image = new GodButton(turnProcess, gods[0], getGodImage(gods[0]));
 		final GodButton god2Image = new GodButton(turnProcess, gods[1], getGodImage(gods[1]));
 		final GodButton god3Image = new GodButton(turnProcess, gods[2], getGodImage(gods[2]));
 		final GodButton god4Image = new GodButton(turnProcess, gods[3], getGodImage(gods[3]));
 		
-		int screenWidth = ActivePane.getInstance().getWidth();
-		int screenHeight = ActivePane.getInstance().getHeight();
-
 		final Text titleText = new Text(screenWidth/2 - 200, 40, getScenarioName());
-
-		final Text storyText = new Text(screenWidth/2 - 200, 200);
 		
 		titleText.setColour(Color.black);
 		storyText.setColour(Color.black);
@@ -218,7 +217,7 @@ public abstract class GameChoiceMenu implements HardPaneDefineable {
 		}, 0, 1);
 	}
 	
-	protected abstract TurnProcess getTurnProcess();
+	protected abstract TurnProcess getTurnProcess(Text storyText);
 
 	protected abstract God[] getGods();
 
@@ -284,7 +283,7 @@ public abstract class GameChoiceMenu implements HardPaneDefineable {
 		private TurnProcess turnProcess;
 		private int choice;
 		
-		public ChoiceButton(String text, TurnProcess turnProcess, int choice, BufferedImage image) {
+		public ChoiceButton(String text, int choice, BufferedImage image) {
 			super(image);
 			this.choice = choice;
 			this.turnProcess = turnProcess;
@@ -313,6 +312,11 @@ public abstract class GameChoiceMenu implements HardPaneDefineable {
 			if(text != null)
 				this.text.setLocation(x + 5, y + this.getSize()[1] - 10);
 		}
+
+		public void setTurnProcess(TurnProcess turnProcess) {
+			this.turnProcess = turnProcess;
+		}
+		
 	}
 	
 }

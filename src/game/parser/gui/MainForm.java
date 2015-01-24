@@ -60,7 +60,7 @@ public class MainForm {
 		addScenario(scenarioNames[1], scenario1Objects, scenario1Gods);
 		
 		final JFrame mainFrame = new JFrame();
-		mainFrame.setSize(300, 300);
+		mainFrame.setSize(550, 300);
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainFrame.setTitle("Divine Intervention");
 		

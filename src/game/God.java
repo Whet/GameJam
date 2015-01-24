@@ -1,5 +1,7 @@
 package game;
 
-public class God {
+public enum God {
 
+	butter, debauchery, fire, motion, unselected
+	
 }

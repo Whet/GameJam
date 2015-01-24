@@ -27,21 +27,26 @@ public abstract class GameChoiceMenu implements HardPaneDefineable {
 	@Override
 	public void load(Crowd crowd) throws FileNotFoundException, IOException {
 
-		GodCollection godCollection = GodCollection.getInstance();
+		TurnProcess turnProcess = getTurnProcess();
+		
+		God[] gods = getGods();
 		
 		final ImageSingle backgroundImage = new ImageSingle(getBackgroundImage());
 		
-		final ImageSingle god1Image = new ImageSingle(getGodImage(godCollection.getGod(0)));
-		final ImageSingle god2Image = new ImageSingle(getGodImage(godCollection.getGod(1)));
-		final ImageSingle god3Image = new ImageSingle(getGodImage(godCollection.getGod(2)));
-		final ImageSingle god4Image = new ImageSingle(getGodImage(godCollection.getGod(3)));
+		final ImageSingle god1Image = new ImageSingle(getGodImage(gods[0]));
+		final ImageSingle god2Image = new ImageSingle(getGodImage(gods[1]));
+		final ImageSingle god3Image = new ImageSingle(getGodImage(gods[2]));
+		final ImageSingle god4Image = new ImageSingle(getGodImage(gods[3]));
 		
 		int screenWidth = ActivePane.getInstance().getWidth();
 		int screenHeight = ActivePane.getInstance().getHeight();
 
 		final Text titleText = new Text(screenWidth/2 - 200, 40, getScenarioName());
 
+		final Text storyText = new Text(screenWidth/2 - 200, 200);
+		
 		titleText.setColour(Color.black);
+		storyText.setColour(Color.black);
 		
 		god1Image.setLocation(GOD_ICON_SPACING, GOD_ICON_SPACING);
 		god2Image.setLocation(screenWidth - god2Image.getImage().getWidth() - GOD_ICON_SPACING, GOD_ICON_SPACING);
@@ -92,6 +97,7 @@ public abstract class GameChoiceMenu implements HardPaneDefineable {
 		crowd.addButton(optionFour);
 		
 		crowd.addDisplayItem(titleText);
+		crowd.addDisplayItem(storyText);
 		
 		final Timer animationTimer = new Timer();
 		
@@ -129,6 +135,8 @@ public abstract class GameChoiceMenu implements HardPaneDefineable {
 				optionTwo.setAlpha(option2Alpha);
 				optionThree.setAlpha(option3Alpha);
 				optionFour.setAlpha(option4Alpha);
+				
+				storyText.setAlpha(option4Alpha);
 			}
 
 			private final float fadeInRate = 0.001f;
@@ -189,13 +197,17 @@ public abstract class GameChoiceMenu implements HardPaneDefineable {
 						option4Alpha = 1;
 				}
 				
-				if(milliseconds > 10000)
+				if(optionFour.getAlpha() >= 1)
 					animationTimer.cancel();
 			}
 			
 		}, 0, 1);
 	}
 	
+	protected abstract TurnProcess getTurnProcess();
+
+	protected abstract God[] getGods();
+
 	protected abstract BufferedImage getBackgroundImage();
 
 	protected abstract String getScenarioName();

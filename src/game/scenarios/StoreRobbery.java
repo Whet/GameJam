@@ -1,6 +1,8 @@
 package game.scenarios;
 
 import game.GameChoiceMenu;
+import game.God;
+import game.TurnProcess;
 
 import java.awt.image.BufferedImage;
 import java.io.FileNotFoundException;
@@ -52,6 +54,16 @@ public class StoreRobbery extends GameChoiceMenu {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	@Override
+	protected God[] getGods() {
+		return new God[]{God.butter, God.debauchery, God.fire, God.motion};
+	}
+
+	@Override
+	protected TurnProcess getTurnProcess() {
+		return new TurnProcess("scenarios/01");
 	}
 
 }

@@ -36,6 +36,7 @@ public class Parser {
 	
 	public String getStoryLine(ObjectGodPair[] pairs) {
 
+		@SuppressWarnings("serial")
 		TreeSet<ObjectGodPair> tree = new TreeSet<ObjectGodPair>(new Comparator<ObjectGodPair>() {
 			@Override
 			public int compare(ObjectGodPair o1, ObjectGodPair o2) {
@@ -55,63 +56,17 @@ public class Parser {
 		};
 		
 		for(Solution sol : solutions) {
+			tree.clear();
 			for(ObjectGodPair ogp : sol.getPairs()){
 				tree.add(ogp);
 			}
+			for(ObjectGodPair ogp : pairs) {
+				tree.add(ogp);
+			}
+			if(tree.size() == 4) {
+				return sol.getStory();
+			}
 		}
-		
-		System.out.println("The tree contains:");
-		for(ObjectGodPair ogp : tree) {
-			System.out.println(ogp);
-		}
-		System.out.println();
-		
-		for(ObjectGodPair ogp : pairs) {
-			System.out.println("Tree contains " + ogp.toString() + " is " + tree.contains(ogp));
-			tree.add(ogp);
-		}
-		
-		System.out.println("The tree contains:");
-		for(ObjectGodPair ogp : tree) {
-			System.out.println(ogp);
-		}
-		System.out.println();
-		
-		System.out.println(tree.size());
-		
-//		TreeSet<ObjectGodPair> pairSet = new TreeSet<ObjectGodPair>(pairComp);
-//		for(Solution sol : solutions) {
-//			System.out.println("Add given pairs");
-//			for(ObjectGodPair pair : pairs) {
-//				pairSet.add(pair);
-////				System.out.println(pair);
-//			}
-//			
-//			System.out.println();
-//			for(ObjectGodPair ogp : pairSet) {
-//				System.out.println(ogp);
-//			}
-//			System.out.println();
-//			
-//			System.out.println("Add solution pairs");
-//			for(ObjectGodPair solutionPair : sol.getPairs()) {
-//				System.out.println("Adding " + solutionPair);
-//				boolean added = pairSet.add(solutionPair);
-//				if(added) System.out.println("ADDED");
-//				System.out.println();
-////				System.out.println(solutionPair);
-//			}
-//			System.out.println("---");
-//			for(ObjectGodPair ogp : pairSet) {
-//				System.out.println(ogp);
-//			}
-//			System.out.println("---");
-//			System.out.println(pairSet.size());
-//			System.out.println();
-//			if(pairSet.size() == 4) {
-//				return sol.getStory();
-//			}
-//		}
 		
 		return "";
 	}

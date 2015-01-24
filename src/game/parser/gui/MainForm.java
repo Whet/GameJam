@@ -29,7 +29,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
 
 public class MainForm {
-	private String[] scenarioNames = {"Shop Robbery", "s1", "Risky scenario"};
+	private String[] scenarioNames = {"Shop Robbery", "Bear Attack"};
 	private HashMap<String, String[]> scenarioObjects = new HashMap<String, String[]>();
 	private HashMap<String, String[]> scenarioGods = new HashMap<String, String[]>();
 	private JLabel object0Label, object1Label, object2Label, object3Label;
@@ -55,12 +55,9 @@ public class MainForm {
 		String[] scenario0Objects = {"Robbers","Alcohol","Clerk","Trolley"};
 		String[] scenario0Gods = {"Debauchery","Butter","Fire","Motion"};
 		addScenario(scenarioNames[0], scenario0Objects, scenario0Gods);
-		String[] scenario1Objects = {"Bed","Piano","Chicken","Window"};
-		String[] scenario1Gods = {"Cats","Ice","Confusion","Euphoria"};
+		String[] scenario1Objects = {"Campfire","Bear","Tent","Wife"};
+		String[] scenario1Gods = {"Chaos/Vegetables","Water/Treachery"};
 		addScenario(scenarioNames[1], scenario1Objects, scenario1Gods);
-		String[] scenario2Objects = {"Bacon","Pliers","Lamppost","Giraffe"};
-		String[] scenario2Gods = {"Tits","Wine"};
-		addScenario(scenarioNames[2], scenario2Objects, scenario2Gods);
 		
 		final JFrame mainFrame = new JFrame();
 		mainFrame.setSize(300, 300);

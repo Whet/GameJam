@@ -57,11 +57,15 @@ public class Parser {
 		
 		for(Solution sol : solutions) {
 			tree.clear();
+			System.out.println("Solution");
 			for(ObjectGodPair ogp : sol.getPairs()){
 				tree.add(ogp);
+				System.out.println(ogp);
 			}
+			System.out.println("Objects");
 			for(ObjectGodPair ogp : pairs) {
 				tree.add(ogp);
+				System.out.println(ogp);
 			}
 			if(tree.size() == 4) {
 				return sol.getStory();

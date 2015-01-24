@@ -4,6 +4,8 @@ import game.GameChoiceMenu;
 import game.God;
 import game.TurnProcess;
 
+import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -14,6 +16,7 @@ import javax.imageio.ImageIO;
 import watoydoEngine.designObjects.display.Displayable;
 import watoydoEngine.designObjects.display.Text;
 import watoydoEngine.io.ReadWriter;
+import watoydoEngine.workings.displayActivity.ActivePane;
 
 public class StoreRobbery extends GameChoiceMenu {
 
@@ -26,10 +29,10 @@ public class StoreRobbery extends GameChoiceMenu {
 	public StoreRobbery() {
 		super();
 		try{
-		choiceButton1 = new ChoiceButton("Trolley", 1, ImageIO.read(ReadWriter.getResourceAsInputStream("buttonPlaceholder.png")));
+		choiceButton1 = new ChoiceButton("Trolley", 3, ImageIO.read(ReadWriter.getResourceAsInputStream("buttonPlaceholder.png")));
 		choiceButton2 = new ChoiceButton("Robber", 0, ImageIO.read(ReadWriter.getResourceAsInputStream("buttonPlaceholder.png")));
 		choiceButton3 = new ChoiceButton("Clerk", 2, ImageIO.read(ReadWriter.getResourceAsInputStream("buttonPlaceholder.png")));
-		choiceButton4 = new ChoiceButton("Alchohol", 3, ImageIO.read(ReadWriter.getResourceAsInputStream("buttonPlaceholder.png")));
+		choiceButton4 = new ChoiceButton("Alchohol", 1, ImageIO.read(ReadWriter.getResourceAsInputStream("buttonPlaceholder.png")));
 		}
 		catch(IOException e) {
 			e.printStackTrace();
@@ -77,7 +80,16 @@ public class StoreRobbery extends GameChoiceMenu {
 	@Override
 	protected BufferedImage getBackgroundImage() {
 		try {
-			return ImageIO.read(ReadWriter.getResourceAsInputStream("backgroundPlaceholder.png"));
+			BufferedImage read = ImageIO.read(ReadWriter.getResourceAsInputStream("storeRobbery.png"));
+
+			Image tmp = read.getScaledInstance(ActivePane.getInstance().getWidth(), ActivePane.getInstance().getHeight(), Image.SCALE_SMOOTH);
+		    BufferedImage dimg = new BufferedImage(ActivePane.getInstance().getWidth(), ActivePane.getInstance().getHeight(), BufferedImage.TYPE_INT_ARGB);
+
+		    Graphics2D g2d = dimg.createGraphics();
+		    g2d.drawImage(tmp, 0, 0, null);
+		    g2d.dispose();
+		    
+		    return dimg;
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -99,7 +111,7 @@ public class StoreRobbery extends GameChoiceMenu {
 
 	@Override
 	public String getStartText() {
-		return "";
+		return "Sandra is an average person.@nShe has lived an average life, of little significance.@nHowever,one night, when Sandra is shopping at her local convenience store, her life is changed forever. @nThe store is empty, but for a sole clerk shifting restlessly behind the counter.@nAs she makes her way to the checkout to pay, an armed robber bursts into the store.@nFrozen in place, she can't help but think to herself “Oh God, Oh God. Why me? God help me!”.@nWell... sometimes you ought to be careful what you ask for...";
 	}
 
 }

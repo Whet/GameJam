@@ -25,11 +25,14 @@ public class MainMenu implements HardPaneDefineable {
 		BufferedImage bioButtonImage = null;
 		BufferedImage exitButtonImage = null;
 		
+		ImageSingle background = null;
+		
 		try {
 			titleImageFile = ImageIO.read(ReadWriter.getResourceAsInputStream("buttonPlaceholder.png"));
 			startButtonImage = ImageIO.read(ReadWriter.getResourceAsInputStream("buttonPlaceholder.png"));
 			bioButtonImage = ImageIO.read(ReadWriter.getResourceAsInputStream("buttonPlaceholder.png"));
 			exitButtonImage = ImageIO.read(ReadWriter.getResourceAsInputStream("buttonPlaceholder.png"));
+			background = new ImageSingle(ImageIO.read(ReadWriter.getResourceAsInputStream("backgroundPlaceholder.png")));
 		} catch (FileNotFoundException e1) {
 			e1.printStackTrace();
 		} catch (IOException e1) {
@@ -78,6 +81,7 @@ public class MainMenu implements HardPaneDefineable {
 		exitButton.setLocation(40, btnStart + 200);
 		
 		crowd.addDisplayItem(titleImage);
+		crowd.addDisplayItem(background);
 		crowd.addButton(startGameButton);
 		crowd.addButton(bioButton);
 		crowd.addButton(exitButton);

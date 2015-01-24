@@ -8,7 +8,7 @@ public class ObjectGodPair {
 	
 	public ObjectGodPair(int objectID, int godID) {
 		this.objectID = objectID;
-		this.godID = God.values()[godID];
+		this.godID = God.getGod(godID);
 	}
 	
 	public boolean equals(ObjectGodPair other) {

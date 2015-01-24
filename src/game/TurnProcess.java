@@ -68,7 +68,15 @@ public class TurnProcess {
 			System.out.println("GOD UNSELECTED");
 			return false;
 		}
+		
 
+		for(Integer choiceMade:this.takenChoices) {
+			if(choiceNumber == choiceMade) {
+				System.out.println("COULDNT CHOOSE NUMBER");
+				return false;
+			}
+		}
+		
 		System.out.println("GOD " + currentGod.toString() + " CHOSE " + choiceNumber);
 		
 		takenTurns.add(currentGod);

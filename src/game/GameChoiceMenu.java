@@ -3,6 +3,7 @@ package game;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.FileNotFoundException;
@@ -13,6 +14,8 @@ import java.util.TimerTask;
 import javax.imageio.ImageIO;
 
 import watoydoEngine.designObjects.actions.ActionRegion;
+import watoydoEngine.designObjects.actions.KeyboardHandler;
+import watoydoEngine.designObjects.actions.KeyboardRespondable;
 import watoydoEngine.designObjects.display.ButtonSingle;
 import watoydoEngine.designObjects.display.Crowd;
 import watoydoEngine.designObjects.display.ImageSingle;
@@ -48,7 +51,7 @@ public abstract class GameChoiceMenu implements HardPaneDefineable {
 	@Override
 	public void load(Crowd crowd) throws FileNotFoundException, IOException {
 
-		God[] gods = getGods();
+		final God[] gods = getGods();
 
 		final ImageSingle backgroundImage = new ImageSingle(getBackgroundImage());
 
@@ -83,6 +86,101 @@ public abstract class GameChoiceMenu implements HardPaneDefineable {
 		final ChoiceButton optionTwo = getOptionTwo();
 		final ChoiceButton optionThree = getOptionThree();
 		final ChoiceButton optionFour = getOptionFour();
+		
+		KeyboardHandler handler = new KeyboardHandler() {
+			
+			@Override
+			public boolean kD(KeyEvent e) {
+				switch(e.getKeyCode()) {
+					// Q
+					case 81:
+						turnProcess.setCurrentGod(gods[0]);
+						turnProcess.applyChoice(0);
+					break;
+					// W
+					case 87:
+						turnProcess.setCurrentGod(gods[0]);
+						turnProcess.applyChoice(1);
+					break;
+					// E
+					case 69:
+						turnProcess.setCurrentGod(gods[0]);
+						turnProcess.applyChoice(2);
+					break;
+					// R
+					case 82:
+						turnProcess.setCurrentGod(gods[0]);
+						turnProcess.applyChoice(3);
+					break;
+					
+					// Z
+					case 90:
+						turnProcess.setCurrentGod(gods[1]);
+						turnProcess.applyChoice(0);
+					break;
+					// X
+					case 88:
+						turnProcess.setCurrentGod(gods[1]);
+						turnProcess.applyChoice(1);
+					break;
+					// C
+					case 67:
+						turnProcess.setCurrentGod(gods[1]);
+						turnProcess.applyChoice(2);
+					break;
+					// V
+					case 86:
+						turnProcess.setCurrentGod(gods[1]);
+						turnProcess.applyChoice(3);
+					break;
+					
+					// O
+					case 79:
+						turnProcess.setCurrentGod(gods[2]);
+						turnProcess.applyChoice(0);
+					break;
+					// P
+					case 80:
+						turnProcess.setCurrentGod(gods[2]);
+						turnProcess.applyChoice(1);
+					break;
+					// [
+					case 91:
+						turnProcess.setCurrentGod(gods[2]);
+						turnProcess.applyChoice(2);
+					break;
+					// ]
+					case 93:
+						turnProcess.setCurrentGod(gods[2]);
+						turnProcess.applyChoice(3);
+					break;
+					
+					// M
+					case 77:
+						turnProcess.setCurrentGod(gods[3]);
+						turnProcess.applyChoice(0);
+					break;
+					// ,
+					case 44:
+						turnProcess.setCurrentGod(gods[3]);
+						turnProcess.applyChoice(1);
+					break;
+					// .
+					case 46:
+						turnProcess.setCurrentGod(gods[3]);
+						turnProcess.applyChoice(2);
+					break;
+					// /
+					case 47:
+						turnProcess.setCurrentGod(gods[3]);
+						turnProcess.applyChoice(3);
+					break;
+				}
+				return true;
+			}
+			
+		};
+		crowd.addKeyListener(handler);
 		
 		int screenMidX = screenWidth / 2;
 		int buttonWidth = optionOne.getImage().getWidth();

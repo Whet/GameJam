@@ -10,12 +10,11 @@ import java.util.List;
 public class Parser {
 
 	public static void main(String[] args) {
-		Parser p = new Parser();
+		Parser p = new Parser(new File("dummySolution.txt"));
 	}
 	
-	public Parser() {
-		String path = "dummySolution.txt";
-		ArrayList<String> lines = read(path);
+	public Parser(File file) {
+		ArrayList<String> lines = read(file);
 		ArrayList<Solution> solutions = parse(lines);
 		
 		for(Solution s : solutions) {
@@ -47,9 +46,8 @@ public class Parser {
 		return solutions;
 	}
 
-	public ArrayList<String> read(String filePath) {
+	public ArrayList<String> read(File file) {
 		ArrayList<String> lines = new ArrayList<String>();
-		File file = new File(filePath);
 		BufferedReader br;
 		try {
 			br = new BufferedReader(new FileReader(file));

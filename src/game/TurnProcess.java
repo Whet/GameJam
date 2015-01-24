@@ -1,18 +1,22 @@
 package game;
 
+import game.parser.Parser;
+
 import java.io.File;
+
 
 public class TurnProcess {
 
-	private File file;
 	private God currentGod;
 	private int stage;
 	private String story;
+	private Parser parser;
 	
 	public TurnProcess(String file) {
-		this.file = new File(file);
 		this.stage = 0;
 		currentGod = God.unselected;
+		
+		parser = new Parser(new File(file));
 	}
 
 	public God getCurrentGod() {

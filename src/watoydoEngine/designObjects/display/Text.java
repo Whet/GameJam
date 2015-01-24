@@ -85,7 +85,7 @@ public class Text implements Displayable {
 
 		// newline has been reached, update position
 		if (pointInText != 0) {
-			lineY += 18;
+			lineY += 24;
 		}
 		for (int i = pointInText; i < this.getText().length(); i++) {
 			if (this.getText().charAt(i) == '@'

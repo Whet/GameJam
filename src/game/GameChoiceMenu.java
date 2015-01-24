@@ -66,7 +66,7 @@ public abstract class GameChoiceMenu implements HardPaneDefineable {
 		final GodButton god3Image = getGodButton(turnProcess, gods, 2);
 		final GodButton god4Image = getGodButton(turnProcess, gods, 3);
 		
-		final Text titleText = new Text(screenWidth/2 - 200, 40, getScenarioName());
+		final Text titleText = new Text(screenWidth/2 - 180, 60, getScenarioName());
 		
 		titleText.setColour(Color.black);
 		storyText.setColour(Color.black);
@@ -95,85 +95,101 @@ public abstract class GameChoiceMenu implements HardPaneDefineable {
 					// Q
 					case 81:
 						turnProcess.setCurrentGod(gods[0]);
-						turnProcess.applyChoice(0);
+						if(turnProcess.applyChoice(0))
+							optionOne.setVisible(false);
 					break;
 					// W
 					case 87:
 						turnProcess.setCurrentGod(gods[0]);
-						turnProcess.applyChoice(1);
+						if(turnProcess.applyChoice(1))
+							optionTwo.setVisible(false);
 					break;
 					// E
 					case 69:
 						turnProcess.setCurrentGod(gods[0]);
-						turnProcess.applyChoice(2);
+						if(turnProcess.applyChoice(2))
+							optionThree.setVisible(false);
 					break;
 					// R
 					case 82:
 						turnProcess.setCurrentGod(gods[0]);
-						turnProcess.applyChoice(3);
+						if(turnProcess.applyChoice(3))
+							optionFour.setVisible(false);
 					break;
 					
 					// Z
 					case 90:
 						turnProcess.setCurrentGod(gods[1]);
-						turnProcess.applyChoice(0);
+						if(turnProcess.applyChoice(0))
+							optionOne.setVisible(false);
 					break;
 					// X
 					case 88:
 						turnProcess.setCurrentGod(gods[1]);
-						turnProcess.applyChoice(1);
+						if(turnProcess.applyChoice(1))
+							optionTwo.setVisible(false);
 					break;
 					// C
 					case 67:
 						turnProcess.setCurrentGod(gods[1]);
-						turnProcess.applyChoice(2);
+						if(turnProcess.applyChoice(2))
+							optionThree.setVisible(false);
 					break;
 					// V
 					case 86:
 						turnProcess.setCurrentGod(gods[1]);
-						turnProcess.applyChoice(3);
+						if(turnProcess.applyChoice(3))
+							optionFour.setVisible(false);
 					break;
 					
 					// O
 					case 79:
 						turnProcess.setCurrentGod(gods[2]);
-						turnProcess.applyChoice(0);
+						if(turnProcess.applyChoice(0))
+							optionOne.setVisible(false);
 					break;
 					// P
 					case 80:
 						turnProcess.setCurrentGod(gods[2]);
-						turnProcess.applyChoice(1);
+						if(turnProcess.applyChoice(1))
+							optionTwo.setVisible(false);
 					break;
 					// [
 					case 91:
 						turnProcess.setCurrentGod(gods[2]);
-						turnProcess.applyChoice(2);
+						if(turnProcess.applyChoice(2))
+							optionThree.setVisible(false);
 					break;
 					// ]
 					case 93:
 						turnProcess.setCurrentGod(gods[2]);
-						turnProcess.applyChoice(3);
+						if(turnProcess.applyChoice(3))
+							optionFour.setVisible(false);
 					break;
 					
 					// M
 					case 77:
 						turnProcess.setCurrentGod(gods[3]);
-						turnProcess.applyChoice(0);
+						if(turnProcess.applyChoice(0))
+							optionOne.setVisible(false);
 					break;
 					// ,
 					case 44:
 						turnProcess.setCurrentGod(gods[3]);
-						turnProcess.applyChoice(1);
+						if(turnProcess.applyChoice(1))
+							optionTwo.setVisible(false);
 					break;
 					// .
 					case 46:
 						turnProcess.setCurrentGod(gods[3]);
-						turnProcess.applyChoice(2);
+						if(turnProcess.applyChoice(2))
+							optionThree.setVisible(false);
 					break;
 					// /
 					case 47:
 						turnProcess.setCurrentGod(gods[3]);
-						turnProcess.applyChoice(3);
+						if(turnProcess.applyChoice(3))
+							optionFour.setVisible(false);
 					break;
 				}
 				return true;
@@ -477,7 +493,7 @@ public abstract class GameChoiceMenu implements HardPaneDefineable {
 		@Override
 		public boolean mD(Point mousePosition, MouseEvent e) {
 			if(turnProcess.applyChoice(choice)) {
-				this.setActive(false);
+				this.setVisible(false);
 			}
 			return true;
 		}

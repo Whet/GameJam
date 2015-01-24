@@ -124,7 +124,7 @@ public class TurnProcess {
 
 	private String getStory() {
 		backGround.setVisible(true);
-		final int MAX_CHARS_PER_LINE = 60;
+		final int MAX_CHARS_PER_LINE = 35;
 		int chars = 0;
 		
 		StringBuffer sb = new StringBuffer();

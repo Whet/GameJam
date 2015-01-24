@@ -20,7 +20,7 @@ public class FontList {
 			System.exit(-1);
 		}
 	   
-		STANDARD_FONT = dynamicFont.deriveFont(14f);
+		STANDARD_FONT = dynamicFont.deriveFont(24f);
 	}
 	
 	public static Font STANDARD_FONT;

@@ -15,14 +15,18 @@ import java.util.TimerTask;
 
 import javax.imageio.ImageIO;
 
+import oracle.jrockit.jfr.ActiveRecordingEvent;
+
 import watoydoEngine.designObjects.actions.ActionRegion;
 import watoydoEngine.designObjects.actions.KeyboardHandler;
 import watoydoEngine.designObjects.display.ButtonSingle;
 import watoydoEngine.designObjects.display.Crowd;
 import watoydoEngine.designObjects.display.ImageSingle;
 import watoydoEngine.designObjects.display.Text;
+import watoydoEngine.display.tweens.MotionTween;
 import watoydoEngine.hardPanes.HardPaneDefineable;
 import watoydoEngine.io.ReadWriter;
+import watoydoEngine.utils.Maths;
 import watoydoEngine.workings.displayActivity.ActivePane;
 
 public abstract class GameChoiceMenu implements HardPaneDefineable {
@@ -46,8 +50,7 @@ public abstract class GameChoiceMenu implements HardPaneDefineable {
 			e.printStackTrace();
 		}
 		textBackdrop.setLocation(screenWidth/2 - 300 - 5, 0);
-		textBackdrop.setVisible(false);
-		textBackdrop.setAlpha(0.85f);
+		textBackdrop.setVisible(true);
 	}
 	
 	@Override
@@ -76,16 +79,16 @@ public abstract class GameChoiceMenu implements HardPaneDefineable {
 		titleText.setColour(Color.black);
 		storyText.setColour(Color.black);
 		
-		god1Image.setLocation(GOD_ICON_SPACING, GOD_ICON_SPACING);
+		god1Image.setLocation(screenWidth / 2 - god1Image.getSize()[0] / 2, screenHeight / 2 - god1Image.getSize()[1] / 2);
 		
 		if(god2Image != null)
-			god2Image.setLocation(screenWidth - god2Image.getImage().getWidth() - GOD_ICON_SPACING, GOD_ICON_SPACING);
+			god2Image.setLocation(screenWidth / 2 - god1Image.getSize()[0] / 2, screenHeight / 2 - god1Image.getSize()[1] / 2);
 		
 		if(god3Image != null)
-			god3Image.setLocation(GOD_ICON_SPACING, screenHeight - god3Image.getImage().getHeight() - GOD_ICON_SPACING);
+			god3Image.setLocation(screenWidth / 2 - god1Image.getSize()[0] / 2, screenHeight / 2 - god1Image.getSize()[1] / 2);
 		
 		if(god4Image != null)
-			god4Image.setLocation(screenWidth - god4Image.getImage().getWidth() - GOD_ICON_SPACING, screenHeight - god4Image.getImage().getHeight() - GOD_ICON_SPACING);
+			god4Image.setLocation(screenWidth / 2 - god1Image.getSize()[0] / 2, screenHeight / 2 - god1Image.getSize()[1] / 2);
 		
 		final ChoiceButton optionOne = getOptionOne();
 		final ChoiceButton optionTwo = getOptionTwo();
@@ -279,50 +282,258 @@ public abstract class GameChoiceMenu implements HardPaneDefineable {
 			
 		});
 		
+		final ActionRegion advanceAnimation = new ActionRegion(0,0,0,0) {
+			
+			int stage = 0;
+			
+			@Override
+			public boolean isInBounds(double x, double y) {
+				return true;
+			}
+			
+			@Override
+			public boolean mD(Point mousePosition, MouseEvent e) {
+			
+				System.out.println(stage);
+				this.setActive(false);
+				
+				switch(stage) {
+					case 0:
+						titleText.setVisible(false);
+						storyText.setVisible(false);
+						textBackdrop.setVisible(false);
+						
+						final Timer god1Timer = new Timer();
+						god1Timer.schedule(new TimerTask() {
+
+							private int milliseconds = 0;
+							private float godAlpha = 0f;
+							private float godIconAlpha = 0f;
+							private float godScale = 1f;
+							
+							@Override
+							public void run() {
+								milliseconds++;
+								computeAnimation();
+								
+								god1Image.setAlpha(godAlpha);
+								god1Image.setScale(godScale);
+							}
+
+							private void computeAnimation() {
+								if(milliseconds == 2000)
+									god1Image.setTween(new MotionTween(god1Image, -ActivePane.getInstance().getWidth() / 100 + 50, +50, 10000, true));
+								
+								if(milliseconds > 2000)
+									godScale -= 0.001;
+								
+								if(godScale <= 0.3) {
+									godScale = 0.3f;
+								}
+								
+								if(Maths.getDistance(god1Image.getLocation()[0], god1Image.getLocation()[1], 38, 43) < 10) {
+									try {
+										god1Image.setImage(ImageIO.read(ReadWriter.getResourceAsInputStream("butterIcon.png")));
+									} catch (FileNotFoundException e) {
+										e.printStackTrace();
+									} catch (IOException e) {
+										e.printStackTrace();
+									}
+									god1Timer.cancel();
+									startTimer2();
+								}
+								else {
+									if(godAlpha < 1)
+										godAlpha += 0.1;
+									
+									if(godAlpha > 1)
+										godAlpha = 1;
+								}
+							}
+							
+						}, 0, 1);
+						
+					break;
+				}
+
+				stage++;
+				return true;
+			}
+			
+			public void startTimer2() {
+				final Timer godtimer = new Timer();
+				godtimer.schedule(new TimerTask() {
+
+					private int milliseconds = 0;
+					private float godAlpha = 0f;
+					private float godScale = 1f;
+					
+					@Override
+					public void run() {
+						milliseconds++;
+						computeAnimation();
+						
+						god2Image.setAlpha(godAlpha);
+						god2Image.setScale(godScale);
+					}
+
+					private void computeAnimation() {
+						if(milliseconds == 2000)
+							god2Image.setTween(new MotionTween(god2Image, +ActivePane.getInstance().getWidth()- 200, +50, 10000, true));
+						
+						if(milliseconds > 2000)
+							godScale -= 0.001;
+						
+						if(godScale <= 0.3) {
+							godScale = 0.3f;
+						}
+						
+						if(Maths.getDistance(god2Image.getLocation()[0], god2Image.getLocation()[1], ActivePane.getInstance().getWidth()- 200, 43) < 10) {
+							try {
+								god2Image.setImage(ImageIO.read(ReadWriter.getResourceAsInputStream("debaucheryIcon.png")));
+							} catch (FileNotFoundException e) {
+								e.printStackTrace();
+							} catch (IOException e) {
+								e.printStackTrace();
+							}
+							godtimer.cancel();
+							startTimer3();
+						}
+						else {
+							if(godAlpha < 1)
+								godAlpha += 0.1;
+							
+							if(godAlpha > 1)
+								godAlpha = 1;
+						}
+					}
+					
+				}, 0, 1);
+			}
+			
+			public void startTimer3() {
+				final Timer godtimer = new Timer();
+				godtimer.schedule(new TimerTask() {
+
+					private int milliseconds = 0;
+					private float godAlpha = 0f;
+					private float godScale = 1f;
+					
+					@Override
+					public void run() {
+						milliseconds++;
+						computeAnimation();
+						
+						god3Image.setAlpha(godAlpha);
+						god3Image.setScale(godScale);
+					}
+
+					private void computeAnimation() {
+						if(milliseconds == 2000)
+							god3Image.setTween(new MotionTween(god3Image, -ActivePane.getInstance().getWidth() / 100 + 50, ActivePane.getInstance().getHeight() - 180, 10000, true));
+						
+						if(milliseconds > 2000)
+							godScale -= 0.001;
+						
+						if(godScale <= 0.3) {
+							godScale = 0.3f;
+						}
+						
+						if(Maths.getDistance(god3Image.getLocation()[0], god3Image.getLocation()[1], 38,540) < 10) {
+							try {
+								god3Image.setImage(ImageIO.read(ReadWriter.getResourceAsInputStream("fireIcon.png")));
+							} catch (FileNotFoundException e) {
+								e.printStackTrace();
+							} catch (IOException e) {
+								e.printStackTrace();
+							}
+							godtimer.cancel();
+							startTimer4();
+						}
+						else {
+							if(godAlpha < 1)
+								godAlpha += 0.1;
+							
+							if(godAlpha > 1)
+								godAlpha = 1;
+						}
+					}
+					
+				}, 0, 1);
+			}
+			
+			public void startTimer4() {
+				final Timer godtimer = new Timer();
+				godtimer.schedule(new TimerTask() {
+
+					private int milliseconds = 0;
+					private float godAlpha = 0f;
+					private float godScale = 1f;
+					
+					@Override
+					public void run() {
+						milliseconds++;
+						computeAnimation();
+						
+						god4Image.setAlpha(godAlpha);
+						god4Image.setScale(godScale);
+					}
+
+					private void computeAnimation() {
+						if(milliseconds == 2000)
+							god4Image.setTween(new MotionTween(god4Image, +ActivePane.getInstance().getWidth()- 200, ActivePane.getInstance().getHeight() - 180, 10000, true));
+						
+						if(milliseconds > 2000)
+							godScale -= 0.001;
+						
+						if(godScale <= 0.3) {
+							godScale = 0.3f;
+						}
+						
+						if(Maths.getDistance(god4Image.getLocation()[0], god4Image.getLocation()[1], 1080, 540) < 10) {
+							try {
+								god4Image.setImage(ImageIO.read(ReadWriter.getResourceAsInputStream("motionIcon.png")));
+							} catch (FileNotFoundException e) {
+								e.printStackTrace();
+							} catch (IOException e) {
+								e.printStackTrace();
+							}
+							godtimer.cancel();
+						}
+						else {
+							if(godAlpha < 1)
+								godAlpha += 0.1;
+							
+							if(godAlpha > 1)
+								godAlpha = 1;
+						}
+					}
+					
+				}, 0, 1);
+			}
+			
+		};
+		advanceAnimation.setActive(false);
+		crowd.addMouseActionItem(advanceAnimation);
+		
 		final Timer animationTimer = new Timer();
 		
 		animationTimer.scheduleAtFixedRate(new TimerTask() {
 			
 			private int milliseconds = 0;
 			
-			private float god1Alpha = 0;
-			private float god2Alpha = 0;
-			private float god3Alpha = 0;
-			private float god4Alpha = 0;
-			
-			private float option1Alpha = 0;
-			private float option2Alpha = 0;
-			private float option3Alpha = 0;
-			private float option4Alpha = 0;
-			
 			private float titleAlpha = 0;
+			private float backdropAlpha = 0;
 			
 			@Override
 			public void run() {
 				milliseconds++;
 				computeAnimation();
 				
-//				titleText.setAlpha(titleAlpha);
-				
+				titleText.setAlpha(titleAlpha);
 				backgroundImage.setAlpha(titleAlpha);
-			
-				god1Image.setAlpha(god1Alpha);
-				
-				if(god2Image != null)
-					god2Image.setAlpha(god2Alpha);
-				
-				if(god3Image != null)
-					god3Image.setAlpha(god3Alpha);
-				
-				if(god4Image != null)
-					god4Image.setAlpha(god4Alpha);
-				
-				optionOne.setAlpha(option1Alpha);
-				optionTwo.setAlpha(option2Alpha);
-				optionThree.setAlpha(option3Alpha);
-				optionFour.setAlpha(option4Alpha);
-				
-//				storyText.setAlpha(option4Alpha);
+				storyText.setAlpha(titleAlpha);
+				textBackdrop.setAlpha(backdropAlpha);
 			}
 
 			private final float fadeInRate = 0.001f;
@@ -333,78 +544,15 @@ public abstract class GameChoiceMenu implements HardPaneDefineable {
 						titleAlpha +=fadeInRate;
 					if(titleAlpha > 1)
 						titleAlpha = 1;
-				}
-				if(milliseconds > 3000) {
-					if(god1Alpha < 1)
-						god1Alpha +=fadeInRate;
-					if(god1Alpha > 1)
-						god1Alpha = 1;
-				}
-				if(milliseconds > 3500) {
-					if(god2Alpha < 1)
-						god2Alpha +=fadeInRate;
-					if(god2Alpha > 1)
-						god2Alpha = 1;
-				}
-				if(milliseconds > 4000) {
-					if(god3Alpha < 1)
-						god3Alpha +=fadeInRate;
-					if(god3Alpha > 1)
-						god3Alpha = 1;
-				}
-				if(milliseconds > 4500) {
-					if(god4Alpha < 1)
-						god4Alpha +=fadeInRate;
-					if(god4Alpha > 1)
-						god4Alpha = 1;
-				}
-				if(milliseconds > 5000) {
-					if(option1Alpha < 1)
-						option1Alpha +=fadeInRate;
-					if(option1Alpha > 1)
-						option1Alpha = 1;
-				}
-				if(milliseconds > 5200) {
-					if(option2Alpha < 1)
-						option2Alpha +=fadeInRate;
-					if(option2Alpha > 1)
-						option2Alpha = 1;
-				}
-				if(milliseconds > 5400) {
-					if(option3Alpha < 1)
-						option3Alpha +=fadeInRate;
-					if(option3Alpha > 1)
-						option3Alpha = 1;
-				}
-				if(milliseconds > 5600) {
-					if(option4Alpha < 1)
-						option4Alpha +=fadeInRate;
-					if(option4Alpha > 1)
-						option4Alpha = 1;
+					
+					backdropAlpha += 0.0008f;
 				}
 				
-				if(optionFour.getAlpha() >= 1) {
+				if(titleText.getAlpha() >= 1) {
 					animationTimer.cancel();
-
 					titleText.setAlpha(1f);
 					storyText.setAlpha(1f);
-					textBackdrop.setVisible(true);
-					
-					god1Image.setActive(true);
-					
-					if(god2Image != null)
-						god2Image.setActive(true);
-					
-					if(god3Image != null)
-						god3Image.setActive(true);
-					
-					if(god4Image != null)
-						god4Image.setActive(true);
-					
-					optionOne.setActive(true);
-					optionTwo.setActive(true);
-					optionThree.setActive(true);
-					optionFour.setActive(true);
+					advanceAnimation.setActive(true);
 				}
 			}
 			
@@ -452,8 +600,8 @@ public abstract class GameChoiceMenu implements HardPaneDefineable {
 		try {
 			BufferedImage read = ImageIO.read(ReadWriter.getResourceAsInputStream(filename));
 
-			Image tmp = read.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
-		    BufferedImage dimg = new BufferedImage(200, 200, BufferedImage.TYPE_INT_ARGB);
+			Image tmp = read.getScaledInstance(600, 600, Image.SCALE_SMOOTH);
+		    BufferedImage dimg = new BufferedImage(600, 600, BufferedImage.TYPE_INT_ARGB);
 
 		    Graphics2D g2d = dimg.createGraphics();
 		    g2d.drawImage(tmp, 0, 0, null);
@@ -488,6 +636,7 @@ public abstract class GameChoiceMenu implements HardPaneDefineable {
 			super(image);
 			this.god = god;
 			this.turnProcess = turnProcess;
+			this.setActive(false);
 		}
 		
 		@Override

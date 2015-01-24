@@ -25,11 +25,13 @@ public class TurnProcess {
 	private Text storyText;
 	
 	private Set<Displayable> others;
+	private int storyLength;
 	
 	public TurnProcess(Set<Displayable> others, String file) {
 		
 		this.others = others;
 		
+		this.storyLength = 0;
 		this.stage = 0;
 		currentGod = God.unselected;
 		
@@ -86,7 +88,16 @@ public class TurnProcess {
 		pairs[2] = new ObjectGodPair(takenChoices.get(2), takenTurns.get(2).getCode());
 		pairs[3] = new ObjectGodPair(takenChoices.get(3), takenTurns.get(3).getCode());
 		
-		this.story = this.parser.getStoryLine(pairs);
+//		this.story = this.parser.getStoryLine(pairs);
+		this.story = "Roses are red@cViolets are blue@cAnus";
+		
+		// Work out how many clicks needed to read story
+		char[] charArray = this.story.toCharArray();
+		for(int i = 0; i < charArray.length; i++) {
+			if(charArray[i] == '@' && charArray[i + 1] == 'c') {
+				storyLength++;
+			}
+		}
 		
 		storyText.setText(this.getStory());
 	}
@@ -98,7 +109,7 @@ public class TurnProcess {
 	}
 
 	private String getStory() {
-		
+
 		StringBuffer sb = new StringBuffer();
 		
 		char[] charArray = this.story.toCharArray();
@@ -108,13 +119,29 @@ public class TurnProcess {
 		for(int i = 0; i < charArray.length; i++) {
 			if(!(charArray[i] == '@' && charArray[i + 1] == 'c'))
 				sb.append(charArray[i]);
-			else if(charArray[i] == '@' && charArray[i + 1] == 'c' && counter < stage)
-				i += 2;
+			else if(charArray[i] == '@' && charArray[i + 1] == 'c' && counter < this.stage) {
+				i++;
+				sb.append("@n");
+				counter++;
+			}
 			else
 				break;
 		}
 		
 		return sb.toString();
+	}
+	
+	public boolean isChoicesMade() {
+		return this.takenChoices.size() == 4;
+	}
+	
+	public void incrementStage() {
+		System.out.println(stage);
+		this.stage++;
+		storyText.setText(this.getStory());
+		
+		if(this.stage > storyLength)
+			System.out.println("STORY DONE");
 	}
 
 	public void setText(Text storyText) {

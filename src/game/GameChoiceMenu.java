@@ -12,6 +12,7 @@ import java.util.TimerTask;
 
 import javax.imageio.ImageIO;
 
+import watoydoEngine.designObjects.actions.ActionRegion;
 import watoydoEngine.designObjects.display.ButtonSingle;
 import watoydoEngine.designObjects.display.Crowd;
 import watoydoEngine.designObjects.display.ImageSingle;
@@ -38,7 +39,7 @@ public abstract class GameChoiceMenu implements HardPaneDefineable {
 		int screenHeight = ActivePane.getInstance().getHeight();
 		
 		final Text storyText = new Text(screenWidth/2 - 200, 200);
-		TurnProcess turnProcess = getTurnProcess(storyText);
+		final TurnProcess turnProcess = getTurnProcess(storyText);
 		
 		final GodButton god1Image = new GodButton(turnProcess, gods[0], getGodImage(gods[0]));
 		final GodButton god2Image = new GodButton(turnProcess, gods[1], getGodImage(gods[1]));
@@ -100,6 +101,27 @@ public abstract class GameChoiceMenu implements HardPaneDefineable {
 		
 		crowd.addDisplayItem(titleText);
 		crowd.addDisplayItem(storyText);
+		
+		crowd.addMouseActionItem(new ActionRegion(0,0,0,0) {
+			
+			
+			@Override
+			public boolean isActive() {
+				return turnProcess.isChoicesMade();
+			}
+			
+			@Override
+			public boolean isInBounds(double x, double y) {
+				return true;
+			}
+			
+			@Override
+			public boolean mD(Point mousePosition, MouseEvent e) {
+				turnProcess.incrementStage();
+				return true;
+			}
+			
+		});
 		
 		final Timer animationTimer = new Timer();
 		
@@ -286,7 +308,6 @@ public abstract class GameChoiceMenu implements HardPaneDefineable {
 		public ChoiceButton(String text, int choice, BufferedImage image) {
 			super(image);
 			this.choice = choice;
-			this.turnProcess = turnProcess;
 			this.text = new Text(this.getLocation()[0] + 5, this.getLocation()[1] + this.getSize()[1] - 10, text);
 			this.text.setColour(Color.black);
 		}

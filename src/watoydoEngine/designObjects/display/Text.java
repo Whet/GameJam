@@ -90,7 +90,7 @@ public class Text implements Displayable {
 		for (int i = pointInText; i < this.getText().length(); i++) {
 			if (this.getText().charAt(i) == '@'
 					&& i + 1 < this.getText().length()
-					&& this.getText().charAt(i + 1) == 'n') {
+					&& (this.getText().charAt(i + 1) == 'n' || this.getText().charAt(i + 1) == 'c')) {
 				pointInText = i + 2;
 				return sb.toString();
 			}

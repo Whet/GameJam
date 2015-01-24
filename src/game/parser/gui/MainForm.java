@@ -35,12 +35,9 @@ public class MainForm {
 	private JLabel object1Label, object2Label, object3Label, object4Label;
 	
 	private JTextArea storyArea;
-//	private JRadioButton radio11, radio21, radio31, radio41, radio12, radio22, radio32, radio42, radio13, radio23, radio33, radio43, radio14, radio24, radio34, radio44;
 	
 	private JComboBox scenarioCombo;
 	
-//	private JLabel god1Label, god2Label, god3Label, god4Label;
-//	private ButtonGroup godGroup1, godGroup2, godGroup3, godGroup4;
 	private ArrayList<JLabel> godLabels;
 	private ArrayList<ButtonGroup> godGroups;
 	
@@ -84,14 +81,6 @@ public class MainForm {
 		godLabels = new ArrayList<JLabel>();
 		
 		int godCount = scenarioGods.get(scenarioNames[scenarioCombo.getSelectedIndex()]).length;
-//		for(int i=0; i<godCount; i++) {
-//			ButtonGroup group = new ButtonGroup();
-//			group.add(new JRadioButton());
-//			group.add(new JRadioButton());
-//			group.add(new JRadioButton());
-//			group.add(new JRadioButton());
-//			godGroups.add(group);
-//		}
 		createRadioButtons();
 		
 		object1Label = new JLabel(scenarioObjects.get(scenarioNames[0])[0]);
@@ -172,44 +161,6 @@ public class MainForm {
 			}
 		});
 		
-//		JPanel radioButtonPanel = new JPanel();
-//		radioButtonPanel.setLayout(new GridLayout(5, godCount + 1));
-//		radioButtonPanel.add(new JLabel());
-//		radioButtonPanel.add(object1Label);
-//		radioButtonPanel.add(object2Label);
-//		radioButtonPanel.add(object3Label);
-//		radioButtonPanel.add(object4Label);
-//		
-//		for(int i=0; i<godCount; i++) {
-//			radioButtonPanel.add(godLabels.get(i));
-//			for (Enumeration<AbstractButton> buttons = godGroups.get(i).getElements(); buttons.hasMoreElements();) {
-//				AbstractButton button = buttons.nextElement();
-//				radioButtonPanel.add(button);
-//			}
-//		}
-		
-//		radioButtonPanel.add(god1Label);
-//		radioButtonPanel.add(radio11);
-//		radioButtonPanel.add(radio21);
-//		radioButtonPanel.add(radio31);
-//		radioButtonPanel.add(radio41);
-		
-//		radioButtonPanel.add(god2Label);
-//		radioButtonPanel.add(radio12);
-//		radioButtonPanel.add(radio22);
-//		radioButtonPanel.add(radio32);
-//		radioButtonPanel.add(radio42);
-//		radioButtonPanel.add(god3Label);
-//		radioButtonPanel.add(radio13);
-//		radioButtonPanel.add(radio23);
-//		radioButtonPanel.add(radio33);
-//		radioButtonPanel.add(radio43);
-//		radioButtonPanel.add(god4Label);
-//		radioButtonPanel.add(radio14);
-//		radioButtonPanel.add(radio24);
-//		radioButtonPanel.add(radio34);
-//		radioButtonPanel.add(radio44);
-		
 		populateRadioButtonPanel();
 		
 		mainFrame.add(scenarioCombo,BorderLayout.NORTH);
@@ -279,10 +230,6 @@ public class MainForm {
 		for(int i=0; i< godCount; i++) {
 			godLabels.get(i).setText(scenarioGods.get(scenarioNames[index])[i]);
 		}
-//		god1Label.setText(scenarioGods.get(scenarioNames[index])[0]);
-//		god2Label.setText(scenarioGods.get(scenarioNames[index])[1]);
-//		god3Label.setText(scenarioGods.get(scenarioNames[index])[2]);
-//		god4Label.setText(scenarioGods.get(scenarioNames[index])[3]);
 	}
 	
 	private void clear() {

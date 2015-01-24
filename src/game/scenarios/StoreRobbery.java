@@ -24,6 +24,7 @@ public class StoreRobbery extends GameChoiceMenu {
 	private ChoiceButton choiceButton4;
 
 	public StoreRobbery() {
+		super();
 		try{
 		choiceButton1 = new ChoiceButton("Option One", 0, ImageIO.read(ReadWriter.getResourceAsInputStream("buttonPlaceholder.png")));
 		choiceButton2 = new ChoiceButton("Option Two", 1, ImageIO.read(ReadWriter.getResourceAsInputStream("buttonPlaceholder.png")));
@@ -41,7 +42,7 @@ public class StoreRobbery extends GameChoiceMenu {
 		others.add(choiceButton3);
 		others.add(choiceButton4);
 		
-		turnProcess = new TurnProcess(this.getGods().length, others, "dummySolution.txt");
+		turnProcess = new TurnProcess(backgroundText, this.getGods().length, others, "solutions.txt");
 		choiceButton1.setTurnProcess(turnProcess);
 		choiceButton2.setTurnProcess(turnProcess);
 		choiceButton3.setTurnProcess(turnProcess);

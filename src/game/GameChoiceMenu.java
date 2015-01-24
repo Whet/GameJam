@@ -3,6 +3,7 @@ package game;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.FileNotFoundException;
@@ -13,6 +14,8 @@ import java.util.TimerTask;
 import javax.imageio.ImageIO;
 
 import watoydoEngine.designObjects.actions.ActionRegion;
+import watoydoEngine.designObjects.actions.KeyboardHandler;
+import watoydoEngine.designObjects.actions.KeyboardRespondable;
 import watoydoEngine.designObjects.display.ButtonSingle;
 import watoydoEngine.designObjects.display.Crowd;
 import watoydoEngine.designObjects.display.ImageSingle;
@@ -28,10 +31,27 @@ public abstract class GameChoiceMenu implements HardPaneDefineable {
 	private static final int CHOICE_HEIGHT_SPACING = 60;
 	private static final double CHOICE_SCREEN_PERCENT = 0.7;
 	
+	protected ImageSingle backgroundText;
+	
+	public GameChoiceMenu() {
+		
+		int screenWidth = ActivePane.getInstance().getWidth();
+		
+		try {
+			backgroundText = new ImageSingle(ImageIO.read(ReadWriter.getResourceAsInputStream("pinkRectangle.png")));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		backgroundText.setLocation(screenWidth/2 - 200 - 5, 0);
+		backgroundText.setVisible(false);
+	}
+	
 	@Override
 	public void load(Crowd crowd) throws FileNotFoundException, IOException {
 
-		God[] gods = getGods();
+		final God[] gods = getGods();
 
 		final ImageSingle backgroundImage = new ImageSingle(getBackgroundImage());
 
@@ -46,7 +66,7 @@ public abstract class GameChoiceMenu implements HardPaneDefineable {
 		final GodButton god3Image = getGodButton(turnProcess, gods, 2);
 		final GodButton god4Image = getGodButton(turnProcess, gods, 3);
 		
-		final Text titleText = new Text(screenWidth/2 - 200, 40, getScenarioName());
+		final Text titleText = new Text(screenWidth/2 - 180, 60, getScenarioName());
 		
 		titleText.setColour(Color.black);
 		storyText.setColour(Color.black);
@@ -66,6 +86,117 @@ public abstract class GameChoiceMenu implements HardPaneDefineable {
 		final ChoiceButton optionTwo = getOptionTwo();
 		final ChoiceButton optionThree = getOptionThree();
 		final ChoiceButton optionFour = getOptionFour();
+		
+		KeyboardHandler handler = new KeyboardHandler() {
+			
+			@Override
+			public boolean kD(KeyEvent e) {
+				switch(e.getKeyCode()) {
+					// Q
+					case 81:
+						turnProcess.setCurrentGod(gods[0]);
+						if(turnProcess.applyChoice(0))
+							optionOne.setVisible(false);
+					break;
+					// W
+					case 87:
+						turnProcess.setCurrentGod(gods[0]);
+						if(turnProcess.applyChoice(1))
+							optionTwo.setVisible(false);
+					break;
+					// E
+					case 69:
+						turnProcess.setCurrentGod(gods[0]);
+						if(turnProcess.applyChoice(2))
+							optionThree.setVisible(false);
+					break;
+					// R
+					case 82:
+						turnProcess.setCurrentGod(gods[0]);
+						if(turnProcess.applyChoice(3))
+							optionFour.setVisible(false);
+					break;
+					
+					// Z
+					case 90:
+						turnProcess.setCurrentGod(gods[1]);
+						if(turnProcess.applyChoice(0))
+							optionOne.setVisible(false);
+					break;
+					// X
+					case 88:
+						turnProcess.setCurrentGod(gods[1]);
+						if(turnProcess.applyChoice(1))
+							optionTwo.setVisible(false);
+					break;
+					// C
+					case 67:
+						turnProcess.setCurrentGod(gods[1]);
+						if(turnProcess.applyChoice(2))
+							optionThree.setVisible(false);
+					break;
+					// V
+					case 86:
+						turnProcess.setCurrentGod(gods[1]);
+						if(turnProcess.applyChoice(3))
+							optionFour.setVisible(false);
+					break;
+					
+					// O
+					case 79:
+						turnProcess.setCurrentGod(gods[2]);
+						if(turnProcess.applyChoice(0))
+							optionOne.setVisible(false);
+					break;
+					// P
+					case 80:
+						turnProcess.setCurrentGod(gods[2]);
+						if(turnProcess.applyChoice(1))
+							optionTwo.setVisible(false);
+					break;
+					// [
+					case 91:
+						turnProcess.setCurrentGod(gods[2]);
+						if(turnProcess.applyChoice(2))
+							optionThree.setVisible(false);
+					break;
+					// ]
+					case 93:
+						turnProcess.setCurrentGod(gods[2]);
+						if(turnProcess.applyChoice(3))
+							optionFour.setVisible(false);
+					break;
+					
+					// M
+					case 77:
+						turnProcess.setCurrentGod(gods[3]);
+						if(turnProcess.applyChoice(0))
+							optionOne.setVisible(false);
+					break;
+					// ,
+					case 44:
+						turnProcess.setCurrentGod(gods[3]);
+						if(turnProcess.applyChoice(1))
+							optionTwo.setVisible(false);
+					break;
+					// .
+					case 46:
+						turnProcess.setCurrentGod(gods[3]);
+						if(turnProcess.applyChoice(2))
+							optionThree.setVisible(false);
+					break;
+					// /
+					case 47:
+						turnProcess.setCurrentGod(gods[3]);
+						if(turnProcess.applyChoice(3))
+							optionFour.setVisible(false);
+					break;
+				}
+				return true;
+			}
+			
+		};
+		crowd.addKeyListener(handler);
 		
 		int screenMidX = screenWidth / 2;
 		int buttonWidth = optionOne.getImage().getWidth();
@@ -116,6 +247,8 @@ public abstract class GameChoiceMenu implements HardPaneDefineable {
 		crowd.addButton(optionTwo);
 		crowd.addButton(optionThree);
 		crowd.addButton(optionFour);
+		
+		crowd.addDisplayItem(backgroundText);
 		
 		crowd.addDisplayItem(titleText);
 		crowd.addDisplayItem(storyText);
@@ -360,7 +493,7 @@ public abstract class GameChoiceMenu implements HardPaneDefineable {
 		@Override
 		public boolean mD(Point mousePosition, MouseEvent e) {
 			if(turnProcess.applyChoice(choice)) {
-				this.setActive(false);
+				this.setVisible(false);
 			}
 			return true;
 		}

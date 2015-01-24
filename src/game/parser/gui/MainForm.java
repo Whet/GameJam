@@ -29,10 +29,10 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
 
 public class MainForm {
-	private String[] scenarioNames = {"Shop Robbery", "s2", "Risky scenario"};
+	private String[] scenarioNames = {"Shop Robbery", "s1", "Risky scenario"};
 	private HashMap<String, String[]> scenarioObjects = new HashMap<String, String[]>();
 	private HashMap<String, String[]> scenarioGods = new HashMap<String, String[]>();
-	private JLabel object1Label, object2Label, object3Label, object4Label;
+	private JLabel object0Label, object1Label, object2Label, object3Label;
 	
 	private JTextArea storyArea;
 	
@@ -52,15 +52,15 @@ public class MainForm {
 	public MainForm() {
 		radioButtonPanel = new JPanel();
 		
-		String[] scenario1Objects = {"Robbers","Alcohol","Clerk","Trolley"};
-		String[] scenario1Gods = {"Debauchery","Butter","Fire","Motion"};
-		addScenario(scenarioNames[0], scenario1Objects, scenario1Gods);
-		String[] scenario2Objects = {"Bed","Piano","Chicken","Window"};
-		String[] scenario2Gods = {"Cats","Ice","Confusion","Euphoria"};
-		addScenario(scenarioNames[1], scenario2Objects, scenario2Gods);
-		String[] scenario3Objects = {"Bacon","Pliers","Lamppost","Giraffe"};
-		String[] scenario3Gods = {"Tits","Wine"};
-		addScenario(scenarioNames[2], scenario3Objects, scenario3Gods);
+		String[] scenario0Objects = {"Robbers","Alcohol","Clerk","Trolley"};
+		String[] scenario0Gods = {"Debauchery","Butter","Fire","Motion"};
+		addScenario(scenarioNames[0], scenario0Objects, scenario0Gods);
+		String[] scenario1Objects = {"Bed","Piano","Chicken","Window"};
+		String[] scenario1Gods = {"Cats","Ice","Confusion","Euphoria"};
+		addScenario(scenarioNames[1], scenario1Objects, scenario1Gods);
+		String[] scenario2Objects = {"Bacon","Pliers","Lamppost","Giraffe"};
+		String[] scenario2Gods = {"Tits","Wine"};
+		addScenario(scenarioNames[2], scenario2Objects, scenario2Gods);
 		
 		final JFrame mainFrame = new JFrame();
 		mainFrame.setSize(300, 300);
@@ -89,10 +89,10 @@ public class MainForm {
 		int godCount = scenarioGods.get(scenarioNames[scenarioCombo.getSelectedIndex()]).length;
 		createRadioButtons();
 		
-		object1Label = new JLabel(scenarioObjects.get(scenarioNames[0])[0]);
-		object2Label = new JLabel(scenarioObjects.get(scenarioNames[0])[1]);
-		object3Label = new JLabel(scenarioObjects.get(scenarioNames[0])[2]);
-		object4Label = new JLabel(scenarioObjects.get(scenarioNames[0])[3]);
+		object0Label = new JLabel(scenarioObjects.get(scenarioNames[0])[0]);
+		object1Label = new JLabel(scenarioObjects.get(scenarioNames[0])[1]);
+		object2Label = new JLabel(scenarioObjects.get(scenarioNames[0])[2]);
+		object3Label = new JLabel(scenarioObjects.get(scenarioNames[0])[3]);
 		
 		for(int i=0; i<godCount; i++) {
 			godLabels.add(new JLabel(scenarioGods.get(scenarioNames[scenarioCombo.getSelectedIndex()])[i]));
@@ -111,7 +111,7 @@ public class MainForm {
 				
 				int godCount = scenarioGods.get(scenarioNames[scenarioCombo.getSelectedIndex()]).length;
 				for(int i=0; i<godCount; i++) {
-					int groupSelection = 1;
+					int groupSelection = 0;
 					for (Enumeration<AbstractButton> buttons = godGroups.get(i).getElements(); buttons.hasMoreElements();) {
 						AbstractButton button = buttons.nextElement();
 			            if (button.isSelected()) {
@@ -119,7 +119,7 @@ public class MainForm {
 			            }
 			            groupSelection++;
 					}
-					pairs += groupSelection + "," + (i+1) + ",";
+					pairs += groupSelection + "," + i + ",";
 					intTree.add(new Integer(groupSelection));
 				}
 				System.out.println(pairs);
@@ -210,10 +210,10 @@ public class MainForm {
 		radioButtonPanel.removeAll();
 		radioButtonPanel.setLayout(new GridLayout(godCount + 1, 5));
 		radioButtonPanel.add(new JLabel());
+		radioButtonPanel.add(object0Label);
 		radioButtonPanel.add(object1Label);
 		radioButtonPanel.add(object2Label);
 		radioButtonPanel.add(object3Label);
-		radioButtonPanel.add(object4Label);
 		
 		for(int i=0; i<godCount; i++) {
 			radioButtonPanel.add(godLabels.get(i));
@@ -225,10 +225,10 @@ public class MainForm {
 	}
 	
 	private void updateLabels(int index) {
-		object1Label.setText(scenarioObjects.get(scenarioNames[index])[0]);
-		object2Label.setText(scenarioObjects.get(scenarioNames[index])[1]);
-		object3Label.setText(scenarioObjects.get(scenarioNames[index])[2]);
-		object4Label.setText(scenarioObjects.get(scenarioNames[index])[3]);
+		object0Label.setText(scenarioObjects.get(scenarioNames[index])[0]);
+		object1Label.setText(scenarioObjects.get(scenarioNames[index])[1]);
+		object2Label.setText(scenarioObjects.get(scenarioNames[index])[2]);
+		object3Label.setText(scenarioObjects.get(scenarioNames[index])[3]);
 		
 		int godCount = scenarioGods.get(scenarioNames[scenarioCombo.getSelectedIndex()]).length;
 		for(int i=0; i< godCount; i++) {

@@ -119,7 +119,7 @@ public class MainForm {
 			            }
 			            groupSelection++;
 					}
-					pairs += groupSelection + "," + i + ",";
+					pairs += groupSelection + "," + (i+1) + ",";
 					intTree.add(new Integer(groupSelection));
 				}
 				System.out.println(pairs);

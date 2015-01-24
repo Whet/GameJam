@@ -14,7 +14,7 @@ public class FontList {
 		Font dynamicFont = null;
 	    
 		try {
-			dynamicFont = Font.createFont(Font.TRUETYPE_FONT, ReadWriter.getResourceAsInputStream("fonts/LobsterTwo-Regular.ttf"));
+			dynamicFont = Font.createFont(Font.TRUETYPE_FONT, ReadWriter.getResourceAsInputStream("fonts/Chunkfive.ttf"));
 		} catch (FontFormatException | IOException e) {
 			e.printStackTrace();
 			System.exit(-1);

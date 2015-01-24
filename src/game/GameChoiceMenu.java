@@ -28,6 +28,23 @@ public abstract class GameChoiceMenu implements HardPaneDefineable {
 	private static final int CHOICE_HEIGHT_SPACING = 60;
 	private static final double CHOICE_SCREEN_PERCENT = 0.7;
 	
+	protected ImageSingle backgroundText;
+	
+	public GameChoiceMenu() {
+		
+		int screenWidth = ActivePane.getInstance().getWidth();
+		
+		try {
+			backgroundText = new ImageSingle(ImageIO.read(ReadWriter.getResourceAsInputStream("pinkRectangle.png")));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		backgroundText.setLocation(screenWidth/2 - 200 - 5, 0);
+		backgroundText.setVisible(false);
+	}
+	
 	@Override
 	public void load(Crowd crowd) throws FileNotFoundException, IOException {
 
@@ -116,6 +133,8 @@ public abstract class GameChoiceMenu implements HardPaneDefineable {
 		crowd.addButton(optionTwo);
 		crowd.addButton(optionThree);
 		crowd.addButton(optionFour);
+		
+		crowd.addDisplayItem(backgroundText);
 		
 		crowd.addDisplayItem(titleText);
 		crowd.addDisplayItem(storyText);

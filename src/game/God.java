@@ -2,7 +2,7 @@ package game;
 
 public enum God {
 
-	butter(-1), debauchery(1), fire(2), motion(3), unselected(0);
+	butter(0), debauchery(1), fire(2), motion(3), unselected(-1);
 	
 	int code;
 	

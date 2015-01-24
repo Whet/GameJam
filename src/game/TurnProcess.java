@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Set;
 
 import watoydoEngine.designObjects.display.Displayable;
+import watoydoEngine.designObjects.display.ImageSingle;
 import watoydoEngine.designObjects.display.Text;
 
 
@@ -27,8 +28,11 @@ public class TurnProcess {
 	
 	private Set<Displayable> others;
 	private int storyLength;
+	private ImageSingle backGround;
 	
-	public TurnProcess(int playerCount, Set<Displayable> others, String file) {
+	public TurnProcess(ImageSingle background, int playerCount, Set<Displayable> others, String file) {
+		
+		this.backGround = background;
 		
 		this.PLAYER_COUNT = playerCount;
 		
@@ -111,8 +115,8 @@ public class TurnProcess {
 	}
 
 	private String getStory() {
-
-		final int MAX_CHARS_PER_LINE = 80;
+		backGround.setVisible(true);
+		final int MAX_CHARS_PER_LINE = 60;
 		int chars = 0;
 		
 		StringBuffer sb = new StringBuffer();

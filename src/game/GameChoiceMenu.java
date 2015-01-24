@@ -301,7 +301,9 @@ public abstract class GameChoiceMenu implements HardPaneDefineable {
 		
 		@Override
 		public boolean mD(Point mousePosition, MouseEvent e) {
-			turnProcess.applyChoice(choice);
+			if(turnProcess.applyChoice(choice)) {
+				this.setActive(false);
+			}
 			return true;
 		}
 		

@@ -47,11 +47,11 @@ public class TurnProcess {
 		this.stage = stage;
 	}
 
-	public void applyChoice(int choiceNumber) {
+	public boolean applyChoice(int choiceNumber) {
 		
 		if(this.currentGod == God.unselected) {
 			System.out.println("GOD UNSELECTED");
-			return;
+			return false;
 		}
 
 		System.out.println("GOD " + currentGod.toString() + " CHOSE " + choiceNumber);
@@ -63,6 +63,7 @@ public class TurnProcess {
 		// Or auto choose next god
 		currentGod = God.unselected;
 		
+		return true;
 	}
 
 	private void updateStory(int choiceNumber) {

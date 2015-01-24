@@ -1,11 +1,13 @@
 package game.parser;
 
+import java.util.ArrayList;
+
 public class Solution {
 	private String story;
-	private IdHolder[] pairs;
+	private ArrayList<ObjectGodPair> pairs;
 	private String scenarioName;
 	
-	public Solution(String scenarioName, String story, IdHolder[] pairs) {
+	public Solution(String scenarioName, String story, ArrayList<ObjectGodPair> pairs) {
 		this.story = story;
 		this.pairs = pairs;
 		this.scenarioName = scenarioName;
@@ -19,7 +21,7 @@ public class Solution {
 		return story;
 	}
 
-	public IdHolder[] getPairs() {
+	public ArrayList<ObjectGodPair> getPairs() {
 		return pairs;
 	}
 }

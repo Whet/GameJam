@@ -1,37 +1,115 @@
 package game.parser;
-import game.God;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.TreeSet;
 
 
 public class Parser {
-
+	private ArrayList<Solution> solutions;
+	
 	public static void main(String[] args) {
 		Parser p = new Parser(new File("dummySolution.txt"));
+		ObjectGodPair[] pairs = new ObjectGodPair[4];
+		pairs[0] = new ObjectGodPair(1, 1);
+		pairs[1] = new ObjectGodPair(2, 2);
+		pairs[2] = new ObjectGodPair(3, 3);
+		pairs[3] = new ObjectGodPair(4, 4);
+		System.out.println(p.getStoryLine(pairs));
 	}
 	
 	public Parser(File file) {
 		ArrayList<String> lines = read(file);
-		ArrayList<Solution> solutions = parse(lines);
+		solutions = parse(lines);
 		
 		for(Solution s : solutions) {
-			System.out.println(s.getStory());
-			IdHolder[] idHolders = s.getPairs();
-			for(IdHolder ih : idHolders) {
-				System.out.println(ih.objectID + " " + ih.godID);
+//			System.out.println(s.getStory());
+			ArrayList<ObjectGodPair> idHolders = s.getPairs();
+			for(ObjectGodPair ih : idHolders) {
+//				System.out.println(ih.objectID + " " + ih.godID.name());
 			}
 		}
 	}
 	
-	public String getStoryLine(God god, int choice) {
+	public String getStoryLine(ObjectGodPair[] pairs) {
+//		Comparator<ObjectGodPair> pairComp = new Comparator<ObjectGodPair>() {
+//			@Override
+//			public int compare(ObjectGodPair o1, ObjectGodPair o2) {
+//				if(o1.equals(o2)) {
+//					return 0;
+//				}
+//				return -1;
+//			}
+//		};
 		
-		// Work out what number the god is
-		// Work our what choices have been made already
-		// Return solution
+		TreeSet<ObjectGodPair> tree = new TreeSet<ObjectGodPair>(new Comparator<ObjectGodPair>() {
+			public int compare(ObjectGodPair o1, ObjectGodPair o2) {
+				if(o1.equals(o2))
+					return 0;
+				return 1;
+			};
+		});
+		
+		for(Solution sol : solutions) {
+			for(ObjectGodPair ogp : sol.getPairs()){
+				tree.add(ogp);
+			}
+		}
+		
+		System.out.println("The tree contains:");
+		for(ObjectGodPair ogp : tree) {
+			System.out.println(ogp);
+		}
+		System.out.println();
+		
+		for(ObjectGodPair ogp : pairs) {
+			tree.add(ogp);
+		}
+		
+		System.out.println("The tree contains:");
+		for(ObjectGodPair ogp : tree) {
+			System.out.println(ogp);
+		}
+		System.out.println();
+		
+		System.out.println(tree.size());
+		
+//		TreeSet<ObjectGodPair> pairSet = new TreeSet<ObjectGodPair>(pairComp);
+//		for(Solution sol : solutions) {
+//			System.out.println("Add given pairs");
+//			for(ObjectGodPair pair : pairs) {
+//				pairSet.add(pair);
+////				System.out.println(pair);
+//			}
+//			
+//			System.out.println();
+//			for(ObjectGodPair ogp : pairSet) {
+//				System.out.println(ogp);
+//			}
+//			System.out.println();
+//			
+//			System.out.println("Add solution pairs");
+//			for(ObjectGodPair solutionPair : sol.getPairs()) {
+//				System.out.println("Adding " + solutionPair);
+//				boolean added = pairSet.add(solutionPair);
+//				if(added) System.out.println("ADDED");
+//				System.out.println();
+////				System.out.println(solutionPair);
+//			}
+//			System.out.println("---");
+//			for(ObjectGodPair ogp : pairSet) {
+//				System.out.println(ogp);
+//			}
+//			System.out.println("---");
+//			System.out.println(pairSet.size());
+//			System.out.println();
+//			if(pairSet.size() == 4) {
+//				return sol.getStory();
+//			}
+//		}
 		
 		return "";
 	}
@@ -44,12 +122,12 @@ public class Parser {
 			String story = splitLines[2];
 			
 			String[] idStrings = splitLines[1].split(",");
-			IdHolder[] pairs = new IdHolder[(idStrings.length / 2)];
+			ArrayList<ObjectGodPair> pairs = new ArrayList<ObjectGodPair>();
 			for(int i=0; i<idStrings.length; i += 2) {
 				Integer objectIdString = Integer.valueOf(idStrings[i]);
 				Integer godIdString = Integer.valueOf(idStrings[i+1]);
-				IdHolder ih = new IdHolder(objectIdString, godIdString);
-				pairs[i/2] = ih;
+				ObjectGodPair ih = new ObjectGodPair(objectIdString, godIdString);
+				pairs.add(ih);
 			}
 			solutions.add(new Solution(scenario, story, pairs));
 		}

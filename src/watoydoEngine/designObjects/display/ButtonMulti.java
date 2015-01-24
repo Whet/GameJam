@@ -1,6 +1,7 @@
 package watoydoEngine.designObjects.display;
 
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.image.BufferedImage;
 
 import watoydoEngine.utils.GraphicsFunctions;
@@ -13,31 +14,43 @@ public abstract class ButtonMulti extends AbstractButton implements ImageDisplay
 
 	public ButtonMulti(BufferedImage image[]){
 		this.image = image;
+		this.playing = false;
+		this.frame = 0;
 	}
 	
 	public ButtonMulti(BufferedImage image[], double x, double y){
 		super(x,y);
 		this.image = image;
+		this.playing = false;
+		this.frame = 0;
 	}
 	
 	public ButtonMulti(BufferedImage image[], boolean visible){
 		super(visible);
 		this.image = image;
+		this.playing = false;
+		this.frame = 0;
 	}
 	
 	public ButtonMulti(BufferedImage image[], boolean visible, boolean active){
 		super(visible,active);
 		this.image = image;
+		this.playing = false;
+		this.frame = 0;
 	}
 	
 	public ButtonMulti(BufferedImage image[], double x, double y, boolean visible){
 		super(x,y,visible);
 		this.image = image;
+		this.playing = false;
+		this.frame = 0;
 	}
 	
 	public ButtonMulti(BufferedImage image[], double x, double y, boolean visible, boolean active, int z){
 		super(x,y,visible,active,z);
 		this.image = image;
+		this.playing = false;
+		this.frame = 0;
 	}
 	
 	@Override
@@ -134,6 +147,18 @@ public abstract class ButtonMulti extends AbstractButton implements ImageDisplay
 	@Override
 	public void setImage(BufferedImage image){
 		this.image[0] = image;
+	}
+	
+	@Override
+	public void mI(Point mousePosition) {
+		super.mI(mousePosition);
+		this.setFrame(1);
+	}
+	
+	@Override
+	public void mO(Point mousePosition) {
+		super.mO(mousePosition);
+		this.setFrame(0);
 	}
 
 }

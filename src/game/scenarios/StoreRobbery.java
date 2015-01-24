@@ -45,7 +45,7 @@ public class StoreRobbery extends GameChoiceMenu {
 		others.add(choiceButton3);
 		others.add(choiceButton4);
 		
-		turnProcess = new TurnProcess(backgroundText, this.getGods().length, others, "solutions.txt");
+		turnProcess = new TurnProcess(textBackdrop, this.getGods().length, others, "solutions.txt");
 		choiceButton1.setTurnProcess(turnProcess);
 		choiceButton2.setTurnProcess(turnProcess);
 		choiceButton3.setTurnProcess(turnProcess);
@@ -111,7 +111,7 @@ public class StoreRobbery extends GameChoiceMenu {
 
 	@Override
 	public String getStartText() {
-		return "Sandra is an average person.@nShe has lived an average life, of little significance.@nHowever,one night, when Sandra is shopping at her local convenience store, her life is changed forever. @nThe store is empty, but for a sole clerk shifting restlessly behind the counter.@nAs she makes her way to the checkout to pay, an armed robber bursts into the store.@nFrozen in place, she can't help but think to herself “Oh God, Oh God. Why me? God help me!”.@nWell... sometimes you ought to be careful what you ask for...";
+		return "Sandra is an average person.@nShe has lived an average life,@nof little significance.@n@nHowever,one night, when Sandra@nis shopping at her local convenience store,@n her life is changed forever.@n@nThe store is empty, but for a sole clerk@nshifting restlessly behind the counter.@nAs she makes her way to the checkout to pay,@n an armed robber bursts into the store.@nFrozen in place, she can't help but think@nto herself “Oh God, Oh God.@nWhy me? God help me!”.@nWell... sometimes you ought to be@n careful what you ask for...";
 	}
 
 }

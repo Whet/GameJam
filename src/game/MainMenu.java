@@ -8,6 +8,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import watoydoEngine.designObjects.display.ButtonMulti;
 import watoydoEngine.designObjects.display.ButtonSingle;
 import watoydoEngine.designObjects.display.Crowd;
 import watoydoEngine.designObjects.display.ImageSingle;
@@ -21,17 +22,15 @@ public class MainMenu implements HardPaneDefineable {
 	public void load(Crowd crowd) {
 		
 		BufferedImage titleImageFile = null;
-		BufferedImage startButtonImage = null;
-		BufferedImage bioButtonImage = null;
-		BufferedImage exitButtonImage = null;
+		BufferedImage buttonUpImage = null;
+		BufferedImage buttonDownImage = null;
 		
 		ImageSingle background = null;
 		
 		try {
 			titleImageFile = ImageIO.read(ReadWriter.getResourceAsInputStream("buttonPlaceholder.png"));
-			startButtonImage = ImageIO.read(ReadWriter.getResourceAsInputStream("buttonPlaceholder.png"));
-			bioButtonImage = ImageIO.read(ReadWriter.getResourceAsInputStream("buttonPlaceholder.png"));
-			exitButtonImage = ImageIO.read(ReadWriter.getResourceAsInputStream("buttonPlaceholder.png"));
+			buttonUpImage = ImageIO.read(ReadWriter.getResourceAsInputStream("btnUp.png"));
+			buttonDownImage = ImageIO.read(ReadWriter.getResourceAsInputStream("btnDown.png"));
 			background = new ImageSingle(ImageIO.read(ReadWriter.getResourceAsInputStream("backgroundPlaceholder.png")));
 		} catch (FileNotFoundException e1) {
 			e1.printStackTrace();
@@ -41,7 +40,7 @@ public class MainMenu implements HardPaneDefineable {
 		
 		ImageSingle titleImage = new ImageSingle(titleImageFile);
 		
-		ButtonSingle startGameButton = new ButtonSingle(startButtonImage) {
+		ButtonMulti startGameButton = new ButtonMulti(new BufferedImage[]{buttonUpImage, buttonDownImage}) {
 			
 			@Override
 			public boolean mD(java.awt.Point mousePosition, java.awt.event.MouseEvent e) {
@@ -51,7 +50,7 @@ public class MainMenu implements HardPaneDefineable {
 			
 		};
 		
-		ButtonSingle bioButton = new ButtonSingle(bioButtonImage) {
+		ButtonMulti bioButton = new ButtonMulti(new BufferedImage[]{buttonUpImage, buttonDownImage}) {
 			
 			@Override
 			public boolean mD(java.awt.Point mousePosition, java.awt.event.MouseEvent e) {
@@ -60,7 +59,7 @@ public class MainMenu implements HardPaneDefineable {
 			
 		};
 		
-		ButtonSingle exitButton = new ButtonSingle(exitButtonImage) {
+		ButtonMulti exitButton = new ButtonMulti(new BufferedImage[]{buttonUpImage, buttonDownImage}) {
 			
 			@Override
 			public boolean mD(java.awt.Point mousePosition, java.awt.event.MouseEvent e) {

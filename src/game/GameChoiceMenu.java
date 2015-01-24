@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Point;
+import java.awt.Stroke;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
@@ -29,23 +30,24 @@ public abstract class GameChoiceMenu implements HardPaneDefineable {
 	private static final int GOD_ICON_SPACING = 100;
 	private static final int CHOICE_WIDTH_SPACING = 10;
 	private static final int CHOICE_HEIGHT_SPACING = 60;
-	private static final double CHOICE_SCREEN_PERCENT = 0.7;
+	private static final double CHOICE_SCREEN_PERCENT = 0.8;
 	
-	protected ImageSingle backgroundText;
+	protected ImageSingle textBackdrop;
 	
 	public GameChoiceMenu() {
 		
 		int screenWidth = ActivePane.getInstance().getWidth();
 		
 		try {
-			backgroundText = new ImageSingle(ImageIO.read(ReadWriter.getResourceAsInputStream("pinkRectangle.png")));
+			textBackdrop = new ImageSingle(ImageIO.read(ReadWriter.getResourceAsInputStream("pinkRectangle.png")));
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		backgroundText.setLocation(screenWidth/2 - 200 - 5, 0);
-		backgroundText.setVisible(false);
+		textBackdrop.setLocation(screenWidth/2 - 300 - 5, 0);
+		textBackdrop.setVisible(false);
+		textBackdrop.setAlpha(0.85f);
 	}
 	
 	@Override
@@ -58,7 +60,7 @@ public abstract class GameChoiceMenu implements HardPaneDefineable {
 		int screenWidth = ActivePane.getInstance().getWidth();
 		int screenHeight = ActivePane.getInstance().getHeight();
 		
-		final Text storyText = new Text(screenWidth/2 - 200, 200);
+		final Text storyText = new Text(screenWidth/2 - 280, 140);
 		
 		storyText.setText(getStartText());
 		
@@ -245,13 +247,13 @@ public abstract class GameChoiceMenu implements HardPaneDefineable {
 		
 		if(god4Image != null)
 			crowd.addButton(god4Image);
+
+		crowd.addDisplayItem(textBackdrop);
 		
 		crowd.addButton(optionOne);
 		crowd.addButton(optionTwo);
 		crowd.addButton(optionThree);
 		crowd.addButton(optionFour);
-		
-		crowd.addDisplayItem(backgroundText);
 		
 		crowd.addDisplayItem(titleText);
 		crowd.addDisplayItem(storyText);
@@ -300,7 +302,7 @@ public abstract class GameChoiceMenu implements HardPaneDefineable {
 				milliseconds++;
 				computeAnimation();
 				
-				titleText.setAlpha(titleAlpha);
+//				titleText.setAlpha(titleAlpha);
 				
 				backgroundImage.setAlpha(titleAlpha);
 			
@@ -320,7 +322,7 @@ public abstract class GameChoiceMenu implements HardPaneDefineable {
 				optionThree.setAlpha(option3Alpha);
 				optionFour.setAlpha(option4Alpha);
 				
-				storyText.setAlpha(option4Alpha);
+//				storyText.setAlpha(option4Alpha);
 			}
 
 			private final float fadeInRate = 0.001f;
@@ -383,6 +385,10 @@ public abstract class GameChoiceMenu implements HardPaneDefineable {
 				
 				if(optionFour.getAlpha() >= 1) {
 					animationTimer.cancel();
+
+					titleText.setAlpha(1f);
+					storyText.setAlpha(1f);
+					textBackdrop.setVisible(true);
 					
 					god1Image.setActive(true);
 					

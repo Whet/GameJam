@@ -26,10 +26,10 @@ public class StoreRobbery extends GameChoiceMenu {
 	public StoreRobbery() {
 		super();
 		try{
-		choiceButton1 = new ChoiceButton("Option One", 0, ImageIO.read(ReadWriter.getResourceAsInputStream("buttonPlaceholder.png")));
-		choiceButton2 = new ChoiceButton("Option Two", 1, ImageIO.read(ReadWriter.getResourceAsInputStream("buttonPlaceholder.png")));
-		choiceButton3 = new ChoiceButton("Option Three", 2, ImageIO.read(ReadWriter.getResourceAsInputStream("buttonPlaceholder.png")));
-		choiceButton4 = new ChoiceButton("Option Four", 3, ImageIO.read(ReadWriter.getResourceAsInputStream("buttonPlaceholder.png")));
+		choiceButton1 = new ChoiceButton("Trolley", 1, ImageIO.read(ReadWriter.getResourceAsInputStream("buttonPlaceholder.png")));
+		choiceButton2 = new ChoiceButton("Robber", 0, ImageIO.read(ReadWriter.getResourceAsInputStream("buttonPlaceholder.png")));
+		choiceButton3 = new ChoiceButton("Clerk", 2, ImageIO.read(ReadWriter.getResourceAsInputStream("buttonPlaceholder.png")));
+		choiceButton4 = new ChoiceButton("Alchohol", 3, ImageIO.read(ReadWriter.getResourceAsInputStream("buttonPlaceholder.png")));
 		}
 		catch(IOException e) {
 			e.printStackTrace();
@@ -95,6 +95,11 @@ public class StoreRobbery extends GameChoiceMenu {
 	protected TurnProcess getTurnProcess(Text storyText) {
 		turnProcess.setText(storyText);
 		return turnProcess;
+	}
+
+	@Override
+	public String getStartText() {
+		return "";
 	}
 
 }

@@ -2,6 +2,7 @@ package game;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
@@ -15,7 +16,6 @@ import javax.imageio.ImageIO;
 
 import watoydoEngine.designObjects.actions.ActionRegion;
 import watoydoEngine.designObjects.actions.KeyboardHandler;
-import watoydoEngine.designObjects.actions.KeyboardRespondable;
 import watoydoEngine.designObjects.display.ButtonSingle;
 import watoydoEngine.designObjects.display.Crowd;
 import watoydoEngine.designObjects.display.ImageSingle;
@@ -59,6 +59,9 @@ public abstract class GameChoiceMenu implements HardPaneDefineable {
 		int screenHeight = ActivePane.getInstance().getHeight();
 		
 		final Text storyText = new Text(screenWidth/2 - 200, 200);
+		
+		storyText.setText(getStartText());
+		
 		final TurnProcess turnProcess = getTurnProcess(storyText);
 		
 		final GodButton god1Image = getGodButton(turnProcess, gods, 0);
@@ -419,8 +422,39 @@ public abstract class GameChoiceMenu implements HardPaneDefineable {
 	protected abstract String getScenarioName();
 	
 	private BufferedImage getGodImage(God god) {
+		
+		String filename = "";
+		
+		switch(god) {
+		case butter:
+			filename = "butter.png";
+			break;
+		case debauchery:
+			filename = "debauchery.png";
+			break;
+		case fire:
+			filename = "fire.png";
+			break;
+		case motion:
+			filename = "motion.png";
+			break;
+		case unselected:
+			break;
+		
+		}
+		
 		try {
-			return ImageIO.read(ReadWriter.getResourceAsInputStream("buttonPlaceholder.png"));
+			BufferedImage read = ImageIO.read(ReadWriter.getResourceAsInputStream(filename));
+
+			Image tmp = read.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
+		    BufferedImage dimg = new BufferedImage(200, 200, BufferedImage.TYPE_INT_ARGB);
+
+		    Graphics2D g2d = dimg.createGraphics();
+		    g2d.drawImage(tmp, 0, 0, null);
+		    g2d.dispose();
+		    
+		    return dimg;
+		
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -429,6 +463,8 @@ public abstract class GameChoiceMenu implements HardPaneDefineable {
 		return null;
 	}
 
+	public abstract String getStartText();
+	
 	public abstract ChoiceButton getOptionOne() throws FileNotFoundException, IOException;
 	
 	public abstract ChoiceButton getOptionTwo() throws FileNotFoundException, IOException;

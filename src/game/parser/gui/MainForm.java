@@ -110,6 +110,7 @@ public class MainForm {
 		
 		JLabel storyLabel = new JLabel("Scenario Solution:");
 		storyArea = new JTextArea();
+		storyArea.setLineWrap(true);
 //		storyArea.getDocument().putProperty("filterNewlines", Boolean.TRUE);
 		JButton addButton = new JButton("Add to file");
 		addButton.addActionListener(new ActionListener() {

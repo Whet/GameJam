@@ -19,6 +19,7 @@ public class TurnProcess {
 	
 	private God currentGod;
 	private int stage;
+	private final int PLAYER_COUNT;
 	private String story;
 	private Parser parser;
 	
@@ -27,7 +28,9 @@ public class TurnProcess {
 	private Set<Displayable> others;
 	private int storyLength;
 	
-	public TurnProcess(Set<Displayable> others, String file) {
+	public TurnProcess(int playerCount, Set<Displayable> others, String file) {
+		
+		this.PLAYER_COUNT = playerCount;
 		
 		this.others = others;
 		
@@ -70,7 +73,7 @@ public class TurnProcess {
 		// Or auto choose next god
 		currentGod = God.unselected;
 
-		if(this.takenChoices.size() == 4) {
+		if(this.takenChoices.size() == PLAYER_COUNT) {
 			updateStory();
 		}
 		
@@ -81,12 +84,11 @@ public class TurnProcess {
 		
 		hideAll();
 		
-		ObjectGodPair[] pairs = new ObjectGodPair[4];
-		
-		pairs[0] = new ObjectGodPair(takenChoices.get(0), takenTurns.get(0).getCode());
-		pairs[1] = new ObjectGodPair(takenChoices.get(1), takenTurns.get(1).getCode());
-		pairs[2] = new ObjectGodPair(takenChoices.get(2), takenTurns.get(2).getCode());
-		pairs[3] = new ObjectGodPair(takenChoices.get(3), takenTurns.get(3).getCode());
+		ObjectGodPair[] pairs = new ObjectGodPair[PLAYER_COUNT];
+
+		for(int i = 0; i < pairs.length; i++) {
+			pairs[i] = new ObjectGodPair(takenChoices.get(i), takenTurns.get(i).getCode());
+		}
 		
 //		this.story = this.parser.getStoryLine(pairs);
 		this.story = "Roses are red@cViolets are blue@cAnus";
@@ -132,7 +134,7 @@ public class TurnProcess {
 	}
 	
 	public boolean isChoicesMade() {
-		return this.takenChoices.size() == 4;
+		return this.takenChoices.size() == PLAYER_COUNT;
 	}
 	
 	public void incrementStage() {

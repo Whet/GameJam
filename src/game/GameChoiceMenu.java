@@ -32,7 +32,7 @@ public abstract class GameChoiceMenu implements HardPaneDefineable {
 	public void load(Crowd crowd) throws FileNotFoundException, IOException {
 
 		God[] gods = getGods();
-		
+
 		final ImageSingle backgroundImage = new ImageSingle(getBackgroundImage());
 
 		int screenWidth = ActivePane.getInstance().getWidth();
@@ -41,10 +41,10 @@ public abstract class GameChoiceMenu implements HardPaneDefineable {
 		final Text storyText = new Text(screenWidth/2 - 200, 200);
 		final TurnProcess turnProcess = getTurnProcess(storyText);
 		
-		final GodButton god1Image = new GodButton(turnProcess, gods[0], getGodImage(gods[0]));
-		final GodButton god2Image = new GodButton(turnProcess, gods[1], getGodImage(gods[1]));
-		final GodButton god3Image = new GodButton(turnProcess, gods[2], getGodImage(gods[2]));
-		final GodButton god4Image = new GodButton(turnProcess, gods[3], getGodImage(gods[3]));
+		final GodButton god1Image = getGodButton(turnProcess, gods, 0);
+		final GodButton god2Image = getGodButton(turnProcess, gods, 1);
+		final GodButton god3Image = getGodButton(turnProcess, gods, 2);
+		final GodButton god4Image = getGodButton(turnProcess, gods, 3);
 		
 		final Text titleText = new Text(screenWidth/2 - 200, 40, getScenarioName());
 		
@@ -52,9 +52,15 @@ public abstract class GameChoiceMenu implements HardPaneDefineable {
 		storyText.setColour(Color.black);
 		
 		god1Image.setLocation(GOD_ICON_SPACING, GOD_ICON_SPACING);
-		god2Image.setLocation(screenWidth - god2Image.getImage().getWidth() - GOD_ICON_SPACING, GOD_ICON_SPACING);
-		god3Image.setLocation(GOD_ICON_SPACING, screenHeight - god3Image.getImage().getHeight() - GOD_ICON_SPACING);
-		god4Image.setLocation(screenWidth - god4Image.getImage().getWidth() - GOD_ICON_SPACING, screenHeight - god4Image.getImage().getHeight() - GOD_ICON_SPACING);
+		
+		if(god2Image != null)
+			god2Image.setLocation(screenWidth - god2Image.getImage().getWidth() - GOD_ICON_SPACING, GOD_ICON_SPACING);
+		
+		if(god3Image != null)
+			god3Image.setLocation(GOD_ICON_SPACING, screenHeight - god3Image.getImage().getHeight() - GOD_ICON_SPACING);
+		
+		if(god4Image != null)
+			god4Image.setLocation(screenWidth - god4Image.getImage().getWidth() - GOD_ICON_SPACING, screenHeight - god4Image.getImage().getHeight() - GOD_ICON_SPACING);
 		
 		final ChoiceButton optionOne = getOptionOne();
 		final ChoiceButton optionTwo = getOptionTwo();
@@ -76,9 +82,15 @@ public abstract class GameChoiceMenu implements HardPaneDefineable {
 		backgroundImage.setAlpha(startAlpha);
 		
 		god1Image.setAlpha(startAlpha);
-		god2Image.setAlpha(startAlpha);
-		god3Image.setAlpha(startAlpha);
-		god4Image.setAlpha(startAlpha);
+		
+		if(god2Image != null)
+			god2Image.setAlpha(startAlpha);
+		
+		if(god3Image != null)
+			god3Image.setAlpha(startAlpha);
+		
+		if(god4Image != null)
+			god4Image.setAlpha(startAlpha);
 		
 		optionOne.setAlpha(startAlpha);
 		optionTwo.setAlpha(startAlpha);
@@ -90,9 +102,15 @@ public abstract class GameChoiceMenu implements HardPaneDefineable {
 		crowd.addDisplayItem(backgroundImage);
 		
 		crowd.addButton(god1Image);
-		crowd.addButton(god2Image);
-		crowd.addButton(god3Image);
-		crowd.addButton(god4Image);
+		
+		if(god2Image != null)
+			crowd.addButton(god2Image);
+		
+		if(god3Image != null)
+			crowd.addButton(god3Image);
+		
+		if(god4Image != null)
+			crowd.addButton(god4Image);
 		
 		crowd.addButton(optionOne);
 		crowd.addButton(optionTwo);
@@ -149,11 +167,17 @@ public abstract class GameChoiceMenu implements HardPaneDefineable {
 				titleText.setAlpha(titleAlpha);
 				
 				backgroundImage.setAlpha(titleAlpha);
-				
+			
 				god1Image.setAlpha(god1Alpha);
-				god2Image.setAlpha(god2Alpha);
-				god3Image.setAlpha(god3Alpha);
-				god4Image.setAlpha(god4Alpha);
+				
+				if(god2Image != null)
+					god2Image.setAlpha(god2Alpha);
+				
+				if(god3Image != null)
+					god3Image.setAlpha(god3Alpha);
+				
+				if(god4Image != null)
+					god4Image.setAlpha(god4Alpha);
 				
 				optionOne.setAlpha(option1Alpha);
 				optionTwo.setAlpha(option2Alpha);
@@ -225,9 +249,15 @@ public abstract class GameChoiceMenu implements HardPaneDefineable {
 					animationTimer.cancel();
 					
 					god1Image.setActive(true);
-					god2Image.setActive(true);
-					god3Image.setActive(true);
-					god4Image.setActive(true);
+					
+					if(god2Image != null)
+						god2Image.setActive(true);
+					
+					if(god3Image != null)
+						god3Image.setActive(true);
+					
+					if(god4Image != null)
+						god4Image.setActive(true);
 					
 					optionOne.setActive(true);
 					optionTwo.setActive(true);
@@ -239,6 +269,14 @@ public abstract class GameChoiceMenu implements HardPaneDefineable {
 		}, 0, 1);
 	}
 	
+	private GodButton getGodButton(TurnProcess turnProcess, God[] gods, int index) {
+		
+		if(gods.length <= index)
+			return null;
+		
+		return new GodButton(turnProcess, gods[index], getGodImage(gods[index]));
+	}
+
 	protected abstract TurnProcess getTurnProcess(Text storyText);
 
 	protected abstract God[] getGods();
@@ -265,7 +303,7 @@ public abstract class GameChoiceMenu implements HardPaneDefineable {
 	public abstract ChoiceButton getOptionThree() throws FileNotFoundException, IOException;
 	
 	public abstract ChoiceButton getOptionFour() throws FileNotFoundException, IOException;
-
+	
 	private static class GodButton extends ButtonSingle {
 
 		private TurnProcess turnProcess;

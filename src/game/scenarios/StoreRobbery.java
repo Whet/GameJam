@@ -41,7 +41,7 @@ public class StoreRobbery extends GameChoiceMenu {
 		others.add(choiceButton3);
 		others.add(choiceButton4);
 		
-		turnProcess = new TurnProcess(others, "dummySolution.txt");
+		turnProcess = new TurnProcess(this.getGods().length, others, "dummySolution.txt");
 		choiceButton1.setTurnProcess(turnProcess);
 		choiceButton2.setTurnProcess(turnProcess);
 		choiceButton3.setTurnProcess(turnProcess);

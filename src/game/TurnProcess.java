@@ -90,8 +90,8 @@ public class TurnProcess {
 			pairs[i] = new ObjectGodPair(takenChoices.get(i), takenTurns.get(i).getCode());
 		}
 		
-//		this.story = this.parser.getStoryLine(pairs);
-		this.story = "Roses are red@cViolets are blue@cAnus";
+		this.story = this.parser.getStoryLine(pairs);
+//		this.story = "Roses are red@cViolets are blue@cAnus";
 		
 		// Work out how many clicks needed to read story
 		char[] charArray = this.story.toCharArray();
@@ -112,6 +112,9 @@ public class TurnProcess {
 
 	private String getStory() {
 
+		final int MAX_CHARS_PER_LINE = 80;
+		int chars = 0;
+		
 		StringBuffer sb = new StringBuffer();
 		
 		char[] charArray = this.story.toCharArray();
@@ -119,15 +122,23 @@ public class TurnProcess {
 		int counter = 0;
 		
 		for(int i = 0; i < charArray.length; i++) {
-			if(!(charArray[i] == '@' && charArray[i + 1] == 'c'))
+			if(!(charArray[i] == '@' && charArray[i + 1] == 'c')) {
 				sb.append(charArray[i]);
+				chars++;
+			}
 			else if(charArray[i] == '@' && charArray[i + 1] == 'c' && counter < this.stage) {
 				i++;
 				sb.append("@n");
 				counter++;
+				chars = 0;
 			}
 			else
 				break;
+			
+			if(chars > MAX_CHARS_PER_LINE && i+1 < charArray.length && charArray[i + 1] == ' ') {
+				sb.append("@n");
+				chars = 0;
+			}
 		}
 		
 		return sb.toString();

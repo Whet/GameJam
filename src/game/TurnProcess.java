@@ -49,17 +49,23 @@ public class TurnProcess {
 
 	public void applyChoice(int choiceNumber) {
 		
+		if(this.currentGod == God.unselected) {
+			System.out.println("GOD UNSELECTED");
+			return;
+		}
+
+		System.out.println("GOD " + currentGod.toString() + " CHOSE " + choiceNumber);
+		
 		updateStory(choiceNumber);
 		
 		takenTurns.add(currentGod);
 		
 		// Or auto choose next god
 		currentGod = God.unselected;
+		
 	}
 
 	private void updateStory(int choiceNumber) {
-		this.story = ""+stage;
-		
 		this.story = this.parser.getStoryLine(currentGod, choiceNumber);
 	}
 

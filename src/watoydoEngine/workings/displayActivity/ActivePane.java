@@ -1,6 +1,5 @@
 package watoydoEngine.workings.displayActivity;
 import game.MainMenu;
-import game.TestFrame;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -26,7 +25,6 @@ import javax.swing.WindowConstants;
 import watoydoEngine.designObjects.actions.ActivePaneTimer;
 import watoydoEngine.designObjects.display.Crowd;
 import watoydoEngine.designObjects.display.Displayable;
-import watoydoEngine.fonts.FontList;
 import watoydoEngine.workings.DisplayManager;
 
 public class ActivePane extends JFrame implements MouseListener, KeyListener, WindowListener{

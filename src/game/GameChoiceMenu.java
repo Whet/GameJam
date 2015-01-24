@@ -89,10 +89,10 @@ public abstract class GameChoiceMenu implements HardPaneDefineable {
 		
 		crowd.addDisplayItem(backgroundImage);
 		
-		crowd.addDisplayItem(god1Image);
-		crowd.addDisplayItem(god2Image);
-		crowd.addDisplayItem(god3Image);
-		crowd.addDisplayItem(god4Image);
+		crowd.addButton(god1Image);
+		crowd.addButton(god2Image);
+		crowd.addButton(god3Image);
+		crowd.addButton(god4Image);
 		
 		crowd.addButton(optionOne);
 		crowd.addButton(optionTwo);
@@ -200,8 +200,19 @@ public abstract class GameChoiceMenu implements HardPaneDefineable {
 						option4Alpha = 1;
 				}
 				
-				if(optionFour.getAlpha() >= 1)
+				if(optionFour.getAlpha() >= 1) {
 					animationTimer.cancel();
+					
+					god1Image.setActive(true);
+					god2Image.setActive(true);
+					god3Image.setActive(true);
+					god4Image.setActive(true);
+					
+					optionOne.setActive(true);
+					optionTwo.setActive(true);
+					optionThree.setActive(true);
+					optionFour.setActive(true);
+				}
 			}
 			
 		}, 0, 1);
@@ -248,14 +259,23 @@ public abstract class GameChoiceMenu implements HardPaneDefineable {
 		@Override
 		public boolean mD(Point mousePosition, MouseEvent e) {
 			if(turnProcess.setCurrentGod(god)) {
-				
+				System.out.println("CURRENT GOD " + god.toString());
 			}
 			else {
-				
+				System.out.println("ALREADY CHOSE " + god.toString());
 			}
 			return true;
 		}
 		
+		@Override
+		public void mI(Point mousePosition) {
+			this.setScale(1.2);
+		}
+		
+		@Override
+		public void mO(Point mousePosition) {
+			this.setScale(1);
+		}
 	}
 	
 	public static class ChoiceButton extends ButtonSingle {

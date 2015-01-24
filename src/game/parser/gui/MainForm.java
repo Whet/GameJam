@@ -43,6 +43,8 @@ public class MainForm {
 	
 	private JPanel radioButtonPanel;
 	
+	private int currentSelectedIndex;
+	
 	public static void main(String[] args) {
 		new MainForm();
 	}
@@ -70,12 +72,16 @@ public class MainForm {
 		scenarioCombo = new JComboBox(scenarioNames);
 		scenarioCombo.addActionListener (new ActionListener () {
 		    public void actionPerformed(ActionEvent e) {
-		        updateLabels(scenarioCombo.getSelectedIndex());
-		        createRadioButtons();
-		        populateRadioButtonPanel();
-		        mainFrame.repaint();
+		    	if(scenarioCombo.getSelectedIndex() != currentSelectedIndex){
+			        updateLabels(scenarioCombo.getSelectedIndex());
+			        createRadioButtons();
+			        populateRadioButtonPanel();
+			        mainFrame.repaint();
+			        currentSelectedIndex = scenarioCombo.getSelectedIndex();
+		    	}
 		    }
 		});
+		currentSelectedIndex = scenarioCombo.getSelectedIndex();
 		
 		godGroups = new ArrayList<ButtonGroup>();
 		godLabels = new ArrayList<JLabel>();

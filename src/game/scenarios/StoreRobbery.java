@@ -10,33 +10,34 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import watoydoEngine.designObjects.display.ButtonSingle;
 import watoydoEngine.io.ReadWriter;
 
 public class StoreRobbery extends GameChoiceMenu {
 
+	private TurnProcess turnProcess;
+
+	public StoreRobbery() {
+		turnProcess = new TurnProcess("dummySolution.txt");
+	}
+	
 	@Override
-	public ButtonSingle getOptionOne() throws FileNotFoundException, IOException {
-		return new ButtonSingle(ImageIO.read(ReadWriter.getResourceAsInputStream("buttonPlaceholder.png"))) {
-		};
+	public ChoiceButton getOptionOne() throws FileNotFoundException, IOException {
+		return new ChoiceButton("Option One", turnProcess, 0, ImageIO.read(ReadWriter.getResourceAsInputStream("buttonPlaceholder.png")));
 	}
 
 	@Override
-	public ButtonSingle getOptionTwo() throws FileNotFoundException, IOException {
-		return new ButtonSingle(ImageIO.read(ReadWriter.getResourceAsInputStream("buttonPlaceholder.png"))) {
-		};
+	public ChoiceButton getOptionTwo() throws FileNotFoundException, IOException {
+		return new ChoiceButton("Option Two", turnProcess, 1, ImageIO.read(ReadWriter.getResourceAsInputStream("buttonPlaceholder.png")));
 	}
 
 	@Override
-	public ButtonSingle getOptionThree() throws FileNotFoundException, IOException {
-		return new ButtonSingle(ImageIO.read(ReadWriter.getResourceAsInputStream("buttonPlaceholder.png"))) {
-		};
+	public ChoiceButton getOptionThree() throws FileNotFoundException, IOException {
+		return new ChoiceButton("Option Three", turnProcess, 2, ImageIO.read(ReadWriter.getResourceAsInputStream("buttonPlaceholder.png")));
 	}
 
 	@Override
-	public ButtonSingle getOptionFour() throws FileNotFoundException, IOException {
-		return new ButtonSingle(ImageIO.read(ReadWriter.getResourceAsInputStream("buttonPlaceholder.png"))) {
-		};
+	public ChoiceButton getOptionFour() throws FileNotFoundException, IOException {
+		return new ChoiceButton("Option Four", turnProcess, 3, ImageIO.read(ReadWriter.getResourceAsInputStream("buttonPlaceholder.png")));
 	}
 
 	@Override
@@ -63,7 +64,7 @@ public class StoreRobbery extends GameChoiceMenu {
 
 	@Override
 	protected TurnProcess getTurnProcess() {
-		return new TurnProcess("scenarios/01");
+		return turnProcess;
 	}
 
 }

@@ -1,6 +1,9 @@
 package game;
 
 import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.Point;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -33,10 +36,10 @@ public abstract class GameChoiceMenu implements HardPaneDefineable {
 		
 		final ImageSingle backgroundImage = new ImageSingle(getBackgroundImage());
 		
-		final ImageSingle god1Image = new ImageSingle(getGodImage(gods[0]));
-		final ImageSingle god2Image = new ImageSingle(getGodImage(gods[1]));
-		final ImageSingle god3Image = new ImageSingle(getGodImage(gods[2]));
-		final ImageSingle god4Image = new ImageSingle(getGodImage(gods[3]));
+		final GodButton god1Image = new GodButton(turnProcess, gods[0], getGodImage(gods[0]));
+		final GodButton god2Image = new GodButton(turnProcess, gods[1], getGodImage(gods[1]));
+		final GodButton god3Image = new GodButton(turnProcess, gods[2], getGodImage(gods[2]));
+		final GodButton god4Image = new GodButton(turnProcess, gods[3], getGodImage(gods[3]));
 		
 		int screenWidth = ActivePane.getInstance().getWidth();
 		int screenHeight = ActivePane.getInstance().getHeight();
@@ -53,10 +56,10 @@ public abstract class GameChoiceMenu implements HardPaneDefineable {
 		god3Image.setLocation(GOD_ICON_SPACING, screenHeight - god3Image.getImage().getHeight() - GOD_ICON_SPACING);
 		god4Image.setLocation(screenWidth - god4Image.getImage().getWidth() - GOD_ICON_SPACING, screenHeight - god4Image.getImage().getHeight() - GOD_ICON_SPACING);
 		
-		final ButtonSingle optionOne = getOptionOne();
-		final ButtonSingle optionTwo = getOptionTwo();
-		final ButtonSingle optionThree = getOptionThree();
-		final ButtonSingle optionFour = getOptionFour();
+		final ChoiceButton optionOne = getOptionOne();
+		final ChoiceButton optionTwo = getOptionTwo();
+		final ChoiceButton optionThree = getOptionThree();
+		final ChoiceButton optionFour = getOptionFour();
 		
 		int screenMidX = screenWidth / 2;
 		int buttonWidth = optionOne.getImage().getWidth();
@@ -223,12 +226,71 @@ public abstract class GameChoiceMenu implements HardPaneDefineable {
 		return null;
 	}
 
-	public abstract ButtonSingle getOptionOne() throws FileNotFoundException, IOException;
+	public abstract ChoiceButton getOptionOne() throws FileNotFoundException, IOException;
 	
-	public abstract ButtonSingle getOptionTwo() throws FileNotFoundException, IOException;
+	public abstract ChoiceButton getOptionTwo() throws FileNotFoundException, IOException;
 	
-	public abstract ButtonSingle getOptionThree() throws FileNotFoundException, IOException;
+	public abstract ChoiceButton getOptionThree() throws FileNotFoundException, IOException;
 	
-	public abstract ButtonSingle getOptionFour() throws FileNotFoundException, IOException;
+	public abstract ChoiceButton getOptionFour() throws FileNotFoundException, IOException;
 
+	private static class GodButton extends ButtonSingle {
+
+		private TurnProcess turnProcess;
+		private God god;
+		
+		public GodButton(TurnProcess turnProcess, God god, BufferedImage image) {
+			super(image);
+			this.god = god;
+			this.turnProcess = turnProcess;
+		}
+		
+		@Override
+		public boolean mD(Point mousePosition, MouseEvent e) {
+			if(turnProcess.setCurrentGod(god)) {
+				
+			}
+			else {
+				
+			}
+			return true;
+		}
+		
+	}
+	
+	public static class ChoiceButton extends ButtonSingle {
+		
+		private Text text;
+		private TurnProcess turnProcess;
+		private int choice;
+		
+		public ChoiceButton(String text, TurnProcess turnProcess, int choice, BufferedImage image) {
+			super(image);
+			this.choice = choice;
+			this.turnProcess = turnProcess;
+			this.text = new Text(this.getLocation()[0] + 5, this.getLocation()[1] + this.getSize()[1] - 10, text);
+			this.text.setColour(Color.black);
+		}
+		
+		@Override
+		public void drawMethod(Graphics2D drawShape) {
+			super.drawMethod(drawShape);
+			text.setAlpha(this.getAlpha());
+			text.drawMethod(drawShape);
+		}
+		
+		@Override
+		public boolean mD(Point mousePosition, MouseEvent e) {
+			turnProcess.applyChoice(choice);
+			return true;
+		}
+		
+		@Override
+		public void setLocation(double x, double y) {
+			super.setLocation(x, y);
+			if(text != null)
+				this.text.setLocation(x + 5, y + this.getSize()[1] - 10);
+		}
+	}
+	
 }

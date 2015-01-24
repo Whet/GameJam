@@ -3,10 +3,14 @@ package game;
 import game.parser.Parser;
 
 import java.io.File;
+import java.util.HashSet;
+import java.util.Set;
 
 
 public class TurnProcess {
 
+	private Set<God> takenTurns;
+	
 	private God currentGod;
 	private int stage;
 	private String story;
@@ -16,6 +20,8 @@ public class TurnProcess {
 		this.stage = 0;
 		currentGod = God.unselected;
 		
+		takenTurns = new HashSet<God>();
+		
 		parser = new Parser(new File(file));
 	}
 
@@ -23,8 +29,14 @@ public class TurnProcess {
 		return currentGod;
 	}
 
-	public void setCurrentGod(God currentGod) {
-		this.currentGod = currentGod;
+	public boolean setCurrentGod(God currentGod) {
+		
+		if(!this.takenTurns.contains(currentGod)) {
+			this.currentGod = currentGod;
+			return true;
+		}
+		
+		return false;
 	}
 	
 	public int getStage() {
@@ -35,12 +47,14 @@ public class TurnProcess {
 		this.stage = stage;
 	}
 
-	public void applyChoice(God god) {
-		
-		// Assign god to choice number
-		int choiceNumber = 0;
+	public void applyChoice(int choiceNumber) {
 		
 		updateStory(choiceNumber);
+		
+		takenTurns.add(currentGod);
+		
+		// Or auto choose next god
+		currentGod = God.unselected;
 	}
 
 	private void updateStory(int choiceNumber) {

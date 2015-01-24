@@ -9,11 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import watoydoEngine.designObjects.display.Crowd;
 import watoydoEngine.designObjects.display.Displayable;
 import watoydoEngine.designObjects.display.ImageSingle;
 import watoydoEngine.designObjects.display.Text;
-import watoydoEngine.workings.displayActivity.ActivePane;
 
 
 public class TurnProcess {
@@ -173,7 +171,7 @@ public class TurnProcess {
 		storyText.setText(this.getStory());
 		
 		if(this.stage > storyLength)
-			ActivePane.getInstance().changeRootCrowd(new Crowd(new MainMenu()));
+			System.out.println("STORY DONE");
 	}
 
 	public void setText(Text storyText) {

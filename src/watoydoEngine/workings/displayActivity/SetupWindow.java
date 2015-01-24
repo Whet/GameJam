@@ -60,19 +60,20 @@ public class SetupWindow extends JFrame{
 		this.setTitle("GameJam Setup");
 		
 //		Image watLogo = null;
-		Image setupImage = null;
+//		Image setupImage = null;
 //		ImageIcon atrophyIcon = null;
 //		
-		try{
+//		try{
 //			watLogo = ImageIO.read(ReadWriter.getResourceAsInputStream("images/watoydo/watoydoLogo.jpg"));
-			setupImage = ImageIO.read(ReadWriter.getResourceAsInputStream("setupImage.png"));
-		}
-		catch(IOException ioexcept){
-			System.err.println("watoydo window logo not found mods folder likely out of place, terminating");
-		}
+//			setupImage = ImageIO.read(ReadWriter.getResourceAsInputStream("images/atrophy/setupImage.png"));
+//		}
+//		catch(IOException ioexcept){
+//			System.err.println("watoydo window logo not found mods folder likely out of place, terminating");
+//			System.exit(-1);
+//		}
 //		this.setIconImage(watLogo);
 //		
-		JLabel setupImageLabel = new JLabel(new ImageIcon(setupImage));
+//		JLabel setupImageLabel = new JLabel(new ImageIcon(setupImage));
 		
 		// Init buttons
 		windowed = new JButton("Windowed");
@@ -117,7 +118,7 @@ public class SetupWindow extends JFrame{
 		buttonsContainer.add(start);
 		buttonsContainer.add(exit);
 		
-		this.add(setupImageLabel, BorderLayout.CENTER);
+//		this.add(setupImageLabel, BorderLayout.CENTER);
 		
 		resolution.addItem("1280 720");
 		resolution.addItem("1280 800");

@@ -35,23 +35,24 @@ public class Parser {
 	}
 	
 	public String getStoryLine(ObjectGodPair[] pairs) {
-//		Comparator<ObjectGodPair> pairComp = new Comparator<ObjectGodPair>() {
-//			@Override
-//			public int compare(ObjectGodPair o1, ObjectGodPair o2) {
-//				if(o1.equals(o2)) {
-//					return 0;
-//				}
-//				return -1;
-//			}
-//		};
-		
+
 		TreeSet<ObjectGodPair> tree = new TreeSet<ObjectGodPair>(new Comparator<ObjectGodPair>() {
+			@Override
 			public int compare(ObjectGodPair o1, ObjectGodPair o2) {
 				if(o1.equals(o2))
 					return 0;
 				return 1;
 			};
-		});
+		}) {
+			@Override
+			public boolean add(ObjectGodPair e) {
+				for(ObjectGodPair pair:this) {
+					if(e.equals(pair))
+						return false;
+				}
+				return super.add(e);
+			}
+		};
 		
 		for(Solution sol : solutions) {
 			for(ObjectGodPair ogp : sol.getPairs()){
@@ -66,6 +67,7 @@ public class Parser {
 		System.out.println();
 		
 		for(ObjectGodPair ogp : pairs) {
+			System.out.println("Tree contains " + ogp.toString() + " is " + tree.contains(ogp));
 			tree.add(ogp);
 		}
 		

@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 
 import watoydoEngine.display.tweens.TweenDefinable;
+import watoydoEngine.fonts.FontList;
 import watoydoEngine.utils.GraphicsFunctions;
 
 public class Text implements Displayable {
@@ -29,7 +30,7 @@ public class Text implements Displayable {
 		this.scale = 1;
 		this.message = "";
 		this.colour = Color.white;
-//		font = FontList.AUD14;
+		font = FontList.STANDARD_FONT;
 	}
 
 	public Text(double x, double y) {
@@ -40,7 +41,7 @@ public class Text implements Displayable {
 		this.scale = 1;
 		this.message = "";
 		this.colour = Color.white;
-//		font = FontList.AUD14;
+		font = FontList.STANDARD_FONT;
 	}
 
 	public Text(double x, double y, String message) {
@@ -51,7 +52,7 @@ public class Text implements Displayable {
 		this.scale = 1;
 		this.message = message;
 		this.colour = Color.white;
-//		font = FontList.AUD14;
+		font = FontList.STANDARD_FONT;
 	}
 
 	public Text(double x, double y, String message, Color colour) {
@@ -62,7 +63,7 @@ public class Text implements Displayable {
 		this.scale = 1;
 		this.message = message;
 		this.colour = colour;
-//		font = FontList.AUD14;
+		font = FontList.STANDARD_FONT;
 	}
 
 	@Override

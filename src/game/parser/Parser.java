@@ -1,10 +1,11 @@
 package game.parser;
+import game.God;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 
 public class Parser {
@@ -24,6 +25,15 @@ public class Parser {
 				System.out.println(ih.objectID + " " + ih.godID);
 			}
 		}
+	}
+	
+	public String getStoryLine(God god, int choice) {
+		
+		// Work out what number the god is
+		// Work our what choices have been made already
+		// Return solution
+		
+		return "";
 	}
 	
 	private ArrayList<Solution> parse(ArrayList<String> lines) {

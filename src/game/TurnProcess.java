@@ -45,6 +45,8 @@ public class TurnProcess {
 
 	private void updateStory(int choiceNumber) {
 		this.story = ""+stage;
+		
+		this.story = this.parser.getStoryLine(currentGod, choiceNumber);
 	}
 
 	public String getStory() {

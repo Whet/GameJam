@@ -1,5 +1,6 @@
 package game;
 
+import game.audio.AudioHandler;
 import game.scenarios.StoreRobbery;
 
 import java.awt.Color;
@@ -19,9 +20,13 @@ import watoydoEngine.io.ReadWriter;
 import watoydoEngine.workings.displayActivity.ActivePane;
 
 public class MainMenu implements HardPaneDefineable {
+	
+	private AudioHandler audioHandler;
 
 	@Override
 	public void load(Crowd crowd) {
+		
+		audioHandler = new AudioHandler();
 		
 		BufferedImage titleImageFile = null;
 		BufferedImage buttonUpImage = null;
@@ -128,5 +133,8 @@ public class MainMenu implements HardPaneDefineable {
 		crowd.addButton(startGameButton);
 		crowd.addButton(bioButton);
 		crowd.addButton(exitButton);
+		
+		//Switch with title announcement sound clip
+		audioHandler.playAudio("audio/wolfwhistle.wav");
 	}
 }

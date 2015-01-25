@@ -84,12 +84,22 @@ public class TurnProcess {
 			godImages.get(i).setScale(0.3);
 		}
 		for(int i = 0; i < gods.length; i++) {
-			if(gods[i] == currentGod && i + 1 < gods.length) {
+			if(PLAYER_COUNT == 1 && gods[i] == currentGod && i + 1 < gods.length) {
 				currentGod = gods[i + 1];
 
 				godImages.get(i + 1).setScale(godImages.get(i).getScale() + 0.1);
 
 				break;
+			}
+			else if(PLAYER_COUNT == 2 && takenChoices.size() == 0) {
+				currentGod = God.chaosvegetables;
+				godImages.get(0).setScale(0.4);
+				godImages.get(1).setScale(0.4);
+			}
+			else if(PLAYER_COUNT == 2 && takenChoices.size() > 0) {
+				currentGod = God.watertreachery;
+				godImages.get(2).setScale(0.4);
+				godImages.get(3).setScale(0.4);
 			}
 		}
 

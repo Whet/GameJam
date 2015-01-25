@@ -562,6 +562,18 @@ public abstract class GameChoiceMenu implements HardPaneDefineable {
 		case motion:
 			filename = "motion.png";
 			break;
+		case chaos:
+			filename = "chaos.png";
+			break;
+		case treachery:
+			filename = "treachery.png";
+			break;
+		case vegetables:
+			filename = "vegetables.png";
+			break;
+		case water:
+			filename = "water.png";
+		break;
 		case unselected:
 			break;
 		
@@ -604,6 +616,18 @@ public abstract class GameChoiceMenu implements HardPaneDefineable {
 		case motion:
 			filename = "motionIcon.png";
 			break;
+		case chaos:
+			filename = "chaosIcon.png";
+			break;
+		case treachery:
+			filename = "treacheryIcon.png";
+			break;
+		case vegetables:
+			filename = "vegetablesIcon.png";
+			break;
+		case water:
+			filename = "waterIcon.png";
+		break;
 		case unselected:
 			break;
 		

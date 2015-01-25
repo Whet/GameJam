@@ -1,5 +1,9 @@
 package game.scenarios;
 
+import game.GameChoiceMenu;
+import game.God;
+import game.TurnProcess;
+
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
@@ -13,10 +17,6 @@ import watoydoEngine.designObjects.display.Displayable;
 import watoydoEngine.designObjects.display.Text;
 import watoydoEngine.io.ReadWriter;
 import watoydoEngine.workings.displayActivity.ActivePane;
-import game.GameChoiceMenu;
-import game.God;
-import game.TurnProcess;
-import game.GameChoiceMenu.ChoiceButton;
 
 public class BearAttack extends GameChoiceMenu {
 	
@@ -49,7 +49,7 @@ public class BearAttack extends GameChoiceMenu {
 		others.add(choiceButton3);
 		others.add(choiceButton4);
 		
-		turnProcess = new TurnProcess(this.getGods(), textBackdrop, this.getGods().length, others, "bearsolutions.txt");
+		turnProcess = new TurnProcess(new God[]{God.chaosvegetables, God.watertreachery}, textBackdrop, 2, others, "solutions.txt");
 		choiceButton1.setTurnProcess(turnProcess);
 		choiceButton2.setTurnProcess(turnProcess);
 		choiceButton3.setTurnProcess(turnProcess);
@@ -104,7 +104,7 @@ public class BearAttack extends GameChoiceMenu {
 
 	@Override
 	protected God[] getGods() {
-		return new God[]{God.chaosvegetables, God.watertreachery};
+		return new God[]{God.chaos, God.vegetables, God.water, God.treachery};
 	}
 
 	@Override

@@ -1,7 +1,7 @@
 package game;
 
 import game.audio.AudioHandler;
-import game.scenarios.StoreRobbery;
+import game.scenarios.BearAttack;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -31,6 +31,7 @@ public class MainMenu implements HardPaneDefineable {
 		BufferedImage titleImageFile = null;
 		BufferedImage buttonUpImage = null;
 		BufferedImage buttonDownImage = null;
+		BufferedImage cloudImg = null;
 		
 		ImageSingle background = null;
 		
@@ -38,6 +39,7 @@ public class MainMenu implements HardPaneDefineable {
 			titleImageFile = ImageIO.read(ReadWriter.getResourceAsInputStream("buttonPlaceholder.png"));
 			buttonUpImage = ImageIO.read(ReadWriter.getResourceAsInputStream("btnUp.png"));
 			buttonDownImage = ImageIO.read(ReadWriter.getResourceAsInputStream("btnDown.png"));
+			cloudImg = ImageIO.read(ReadWriter.getResourceAsInputStream("cloud.png"));
 			background = new ImageSingle(ImageIO.read(ReadWriter.getResourceAsInputStream("mainmenu.png")));
 		} catch (FileNotFoundException e1) {
 			e1.printStackTrace();
@@ -65,7 +67,7 @@ public class MainMenu implements HardPaneDefineable {
 			
 			@Override
 			public boolean mD(java.awt.Point mousePosition, java.awt.event.MouseEvent e) {
-				ActivePane.getInstance().changeRootCrowd(new Crowd(new StoreRobbery()));
+				ActivePane.getInstance().changeRootCrowd(new Crowd(new BearAttack()));
 				return true;
 			};
 			
@@ -119,6 +121,28 @@ public class MainMenu implements HardPaneDefineable {
 			
 		};
 		
+		ImageSingle cloud = new ImageSingle(cloudImg) {
+			@Override
+			public void drawMethod(Graphics2D drawShape) {
+				super.drawMethod(drawShape);
+				this.move(-0.8, 0);
+				
+				if(this.getLocation()[0] < -this.getSize()[0])
+					this.setLocation(this.getSize()[0], 0);
+			}
+		};
+		ImageSingle cloud1 = new ImageSingle(cloudImg) {
+			@Override
+			public void drawMethod(Graphics2D drawShape) {
+				super.drawMethod(drawShape);
+				this.move(-0.8, 0);
+				
+				if(this.getLocation()[0] < -this.getSize()[0])
+					this.setLocation(this.getSize()[0], 0);
+			}
+		};
+		cloud1.setLocation(cloud.getSize()[0], 0);
+		
 		int width = ActivePane.getInstance().getWidth();
 		int height = ActivePane.getInstance().getHeight();
 		
@@ -131,11 +155,14 @@ public class MainMenu implements HardPaneDefineable {
 		
 		crowd.addDisplayItem(titleImage);
 		crowd.addDisplayItem(background);
+		crowd.addDisplayItem(cloud);
+		crowd.addDisplayItem(cloud1);
 		crowd.addButton(startGameButton);
 		crowd.addButton(bioButton);
 		crowd.addButton(exitButton);
 		
 		//Switch with title announcement sound clip
 		audioHandler.playAudio("audio/title.wav");
+		
 	}
 }

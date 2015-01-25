@@ -38,7 +38,7 @@ public class MainMenu implements HardPaneDefineable {
 			titleImageFile = ImageIO.read(ReadWriter.getResourceAsInputStream("buttonPlaceholder.png"));
 			buttonUpImage = ImageIO.read(ReadWriter.getResourceAsInputStream("btnUp.png"));
 			buttonDownImage = ImageIO.read(ReadWriter.getResourceAsInputStream("btnDown.png"));
-			background = new ImageSingle(ImageIO.read(ReadWriter.getResourceAsInputStream("backgroundPlaceholder.png")));
+			background = new ImageSingle(ImageIO.read(ReadWriter.getResourceAsInputStream("mainmenu.png")));
 		} catch (FileNotFoundException e1) {
 			e1.printStackTrace();
 		} catch (IOException e1) {

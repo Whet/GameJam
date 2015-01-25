@@ -33,6 +33,10 @@ public class Biography implements HardPaneDefineable {
 		gods.add(God.debauchery);
 		gods.add(God.fire);
 		gods.add(God.motion);
+		gods.add(God.chaos);
+		gods.add(God.treachery);
+		gods.add(God.vegetables);
+		gods.add(God.water);
 		
 		final ImageSingle godImage = new ImageSingle(getGodImage(gods.get(0)));
 		crowd.addDisplayItem(godImage);
@@ -45,13 +49,13 @@ public class Biography implements HardPaneDefineable {
 		try {
 			buttonUpImage = ImageIO.read(ReadWriter.getResourceAsInputStream("btnUp.png"));
 			buttonDownImage = ImageIO.read(ReadWriter.getResourceAsInputStream("btnDown.png"));
-			background = new ImageSingle(ImageIO.read(ReadWriter.getResourceAsInputStream("backgroundPlaceholder.png")));
+			background = new ImageSingle(ImageIO.read(ReadWriter.getResourceAsInputStream("mainmenu.png")));
 		} catch (FileNotFoundException e1) {
 			e1.printStackTrace();
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
-		
+		background.setAlpha(0.3f);
 		crowd.addDisplayItem(background);
 		
 		ButtonMulti menuButton = new ButtonMulti(new BufferedImage[]{buttonUpImage, buttonDownImage}) {
@@ -87,7 +91,7 @@ public class Biography implements HardPaneDefineable {
 			private StringBuffer sb = new StringBuffer();
 			
 			{
-				this.setColour(Color.red);
+				this.setColour(Color.white);
 				this.setText("aaaa");
 			}
 			
@@ -123,7 +127,7 @@ public class Biography implements HardPaneDefineable {
 			public boolean mU(Point mousePosition, MouseEvent e) {
 				index++;
 				
-				if(index > 3)
+				if(index > 7)
 					index = 0;
 				
 				godImage.setImage(getGodImage(gods.get(index)));
@@ -154,6 +158,14 @@ public class Biography implements HardPaneDefineable {
 			return "FIRE";
 		case motion:
 			return "MOTION";
+		case chaos:
+			return "CHAOS";
+		case treachery:
+			return "TREACHERY";
+		case vegetables:
+			return "VEGETABLES";
+		case water:
+			return "WATER";
 		case unselected:
 		break;
 		
@@ -180,6 +192,18 @@ public class Biography implements HardPaneDefineable {
 		case motion:
 			filename = "motion.png";
 			break;
+		case chaos:
+			filename = "chaos.png";
+			break;
+		case treachery:
+			filename = "treachery.png";
+			break;
+		case vegetables:
+			filename = "vegetables.png";
+			break;
+		case water:
+			filename = "water.png";
+		break;
 		case unselected:
 			break;
 		

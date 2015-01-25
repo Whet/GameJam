@@ -2,6 +2,7 @@ package game;
 
 import game.audio.AudioHandler;
 import game.scenarios.BearAttack;
+import game.scenarios.StoreRobbery;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -230,7 +231,14 @@ public abstract class GameChoiceMenu implements HardPaneDefineable {
 				storyText.setVisible(false);
 				textBackdrop.setVisible(false);
 				
-				ah.playAudio("audio/bertius.wav");
+				if (GameChoiceMenu.this instanceof StoreRobbery)
+				{
+					ah.playAudio("audio/bertius.wav");
+				}
+				else if (GameChoiceMenu.this instanceof BearAttack)
+				{
+					ah.playAudio("audio/stan.wav");
+				}
 				
 				final Timer god1Timer = new Timer();
 				god1Timer.schedule(new TimerTask() {
@@ -280,8 +288,15 @@ public abstract class GameChoiceMenu implements HardPaneDefineable {
 			
 			public void startTimer2() {
 				
-				ah.playAudio("audio/ridonculous.wav");
 				
+				if (GameChoiceMenu.this instanceof StoreRobbery)
+				{
+					ah.playAudio("audio/ridonculous.wav");
+				}
+				else if (GameChoiceMenu.this instanceof BearAttack)
+				{
+					ah.playAudio("audio/reeki.wav");
+				}
 				final Timer godtimer = new Timer();
 				godtimer.schedule(new TimerTask() {
 
@@ -333,7 +348,15 @@ public abstract class GameChoiceMenu implements HardPaneDefineable {
 					showOptions();
 					return;
 				}
-				ah.playAudio("audio/savina.wav");
+				
+				if (GameChoiceMenu.this instanceof StoreRobbery)
+				{
+					ah.playAudio("audio/savina.wav");
+				}
+				else if (GameChoiceMenu.this instanceof BearAttack)
+				{
+					ah.playAudio("audio/aquaria.wav");
+				}
 				
 				final Timer godtimer = new Timer();
 				godtimer.schedule(new TimerTask() {
@@ -387,7 +410,14 @@ public abstract class GameChoiceMenu implements HardPaneDefineable {
 					return;
 				}
 				
-				ah.playAudio("audio/grabnibus.wav");
+				if (GameChoiceMenu.this instanceof StoreRobbery)
+				{
+					ah.playAudio("audio/grabnibus.wav");
+				}
+				else if (GameChoiceMenu.this instanceof BearAttack)
+				{
+					ah.playAudio("audio/orfull.wav");
+				}
 				
 				
 				final Timer godtimer = new Timer();

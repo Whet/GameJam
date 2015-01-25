@@ -90,9 +90,9 @@ public abstract class GameChoiceMenu implements HardPaneDefineable {
 		
 		turnProcess.setImages(godImages);
 		
-		final Text titleText = new Text(screenWidth/2 - 180, 60, getScenarioName());
+//		final Text titleText = new Text(screenWidth/2 - 180, 60, getScenarioName());
 		
-		titleText.setColour(Color.black);
+//		titleText.setColour(Color.black);
 		storyText.setColour(Color.black);
 		
 		god1Image.setLocation(screenWidth / 2 - god1Image.getSize()[0] / 2, screenHeight / 2 - god1Image.getSize()[1] / 2);
@@ -141,7 +141,7 @@ public abstract class GameChoiceMenu implements HardPaneDefineable {
 		optionThree.setAlpha(startAlpha);
 		optionFour.setAlpha(startAlpha);
 		
-		titleText.setAlpha(startAlpha);
+//		titleText.setAlpha(startAlpha);
 		
 		crowd.addDisplayItem(backgroundImage);
 		
@@ -163,7 +163,7 @@ public abstract class GameChoiceMenu implements HardPaneDefineable {
 		crowd.addButton(optionThree);
 		crowd.addButton(optionFour);
 		
-		crowd.addDisplayItem(titleText);
+//		crowd.addDisplayItem(titleText);
 		crowd.addDisplayItem(storyText);
 		
 		crowd.addMouseActionItem(new ActionRegion(0,0,0,0) {
@@ -189,8 +189,6 @@ public abstract class GameChoiceMenu implements HardPaneDefineable {
 		
 		final ActionRegion advanceAnimation = new ActionRegion(0,0,0,0) {
 			
-			int stage = 0;
-			
 			@Override
 			public boolean isInBounds(double x, double y) {
 				return true;
@@ -199,64 +197,54 @@ public abstract class GameChoiceMenu implements HardPaneDefineable {
 			@Override
 			public boolean mD(Point mousePosition, MouseEvent e) {
 			
-				System.out.println(stage);
 				this.setActive(false);
 				
-				switch(stage) {
-					case 0:
-						titleText.setVisible(false);
-						storyText.setVisible(false);
-						textBackdrop.setVisible(false);
+				storyText.setVisible(false);
+				textBackdrop.setVisible(false);
+				
+				final Timer god1Timer = new Timer();
+				god1Timer.schedule(new TimerTask() {
+
+					private int milliseconds = 0;
+					private float godAlpha = 0f;
+					private float godIconAlpha = 0f;
+					private float godScale = 1f;
+					
+					@Override
+					public void run() {
+						milliseconds++;
+						computeAnimation();
 						
-						final Timer god1Timer = new Timer();
-						god1Timer.schedule(new TimerTask() {
+						god1Image.setAlpha(godAlpha);
+						god1Image.setScale(godScale);
+					}
 
-							private int milliseconds = 0;
-							private float godAlpha = 0f;
-							private float godIconAlpha = 0f;
-							private float godScale = 1f;
-							
-							@Override
-							public void run() {
-								milliseconds++;
-								computeAnimation();
-								
-								god1Image.setAlpha(godAlpha);
-								god1Image.setScale(godScale);
-							}
-
-							private void computeAnimation() {
-								if(milliseconds == 2000)
-									god1Image.setTween(new MotionTween(god1Image, -ActivePane.getInstance().getWidth() / 100 + 50, +50, 10000, true));
-								
-								if(milliseconds > 2000)
-									godScale -= 0.001;
-								
-								if(godScale <= 0.3) {
-									godScale = 0.3f;
-								}
-								
-								if(Maths.getDistance(god1Image.getLocation()[0], god1Image.getLocation()[1], 38, 43) < 10) {
-									god1Image.setImage(getGodIcon(gods[0]));
-//									god1Image.setActive(true);
-									god1Timer.cancel();
-									startTimer2();
-								}
-								else {
-									if(godAlpha < 1)
-										godAlpha += 0.1;
-									
-									if(godAlpha > 1)
-										godAlpha = 1;
-								}
-							}
-							
-						}, 0, 1);
+					private void computeAnimation() {
+						if(milliseconds == 2000)
+							god1Image.setTween(new MotionTween(god1Image, -ActivePane.getInstance().getWidth() / 100 + 50, +50, 10000, true));
 						
-					break;
-				}
-
-				stage++;
+						if(milliseconds > 2000)
+							godScale -= 0.001;
+						
+						if(godScale <= 0.3) {
+							godScale = 0.3f;
+						}
+						
+						if(Maths.getDistance(god1Image.getLocation()[0], god1Image.getLocation()[1], 38, 43) < 10) {
+							god1Image.setImage(getGodIcon(gods[0]));
+							god1Timer.cancel();
+							startTimer2();
+						}
+						else {
+							if(godAlpha < 1)
+								godAlpha += 0.1;
+							
+							if(godAlpha > 1)
+								godAlpha = 1;
+						}
+					}
+					
+				}, 0, 1);
 				return true;
 			}
 			
@@ -449,7 +437,7 @@ public abstract class GameChoiceMenu implements HardPaneDefineable {
 						
 						if(optionAlpha >= 1) {
 							animationTimer.cancel();
-							titleText.setAlpha(1f);
+//							titleText.setAlpha(1f);
 //							titleText.setVisible(true);
 							storyText.setAlpha(1f);
 //							storyText.setVisible(true);
@@ -477,7 +465,7 @@ public abstract class GameChoiceMenu implements HardPaneDefineable {
 				milliseconds++;
 				computeAnimation();
 				
-				titleText.setAlpha(titleAlpha);
+//				titleText.setAlpha(titleAlpha);
 				backgroundImage.setAlpha(titleAlpha);
 				storyText.setAlpha(titleAlpha);
 				textBackdrop.setAlpha(backdropAlpha);
@@ -495,9 +483,8 @@ public abstract class GameChoiceMenu implements HardPaneDefineable {
 					backdropAlpha += 0.0008f;
 				}
 				
-				if(titleText.getAlpha() >= 1) {
+				if(storyText.getAlpha() >= 1) {
 					animationTimer.cancel();
-					titleText.setAlpha(1f);
 					storyText.setAlpha(1f);
 					advanceAnimation.setActive(true);
 				}

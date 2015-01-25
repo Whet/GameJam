@@ -2,6 +2,8 @@ package game;
 
 import game.scenarios.StoreRobbery;
 
+import java.awt.Color;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -9,9 +11,9 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import watoydoEngine.designObjects.display.ButtonMulti;
-import watoydoEngine.designObjects.display.ButtonSingle;
 import watoydoEngine.designObjects.display.Crowd;
 import watoydoEngine.designObjects.display.ImageSingle;
+import watoydoEngine.designObjects.display.Text;
 import watoydoEngine.hardPanes.HardPaneDefineable;
 import watoydoEngine.io.ReadWriter;
 import watoydoEngine.workings.displayActivity.ActivePane;
@@ -42,6 +44,20 @@ public class MainMenu implements HardPaneDefineable {
 		
 		ButtonMulti startGameButton = new ButtonMulti(new BufferedImage[]{buttonUpImage, buttonDownImage}) {
 			
+			Text text = new Text(this.getLocation()[0] + 20, this.getLocation()[1], "Start");
+
+			{
+				text.setAlpha(1);
+				text.setColour(Color.black);
+			}
+
+			@Override
+			public void drawMethod(Graphics2D drawShape) {
+				super.drawMethod(drawShape);
+				text.setLocation(this.getLocation()[0] + 22, this.getLocation()[1] + 32);
+				text.drawMethod(drawShape);
+			}
+			
 			@Override
 			public boolean mD(java.awt.Point mousePosition, java.awt.event.MouseEvent e) {
 				ActivePane.getInstance().changeRootCrowd(new Crowd(new StoreRobbery()));
@@ -52,6 +68,20 @@ public class MainMenu implements HardPaneDefineable {
 		
 		ButtonMulti bioButton = new ButtonMulti(new BufferedImage[]{buttonUpImage, buttonDownImage}) {
 			
+			Text text = new Text(this.getLocation()[0] + 20, this.getLocation()[1], "Bios");
+
+			{
+				text.setAlpha(1);
+				text.setColour(Color.black);
+			}
+
+			@Override
+			public void drawMethod(Graphics2D drawShape) {
+				super.drawMethod(drawShape);
+				text.setLocation(this.getLocation()[0] + 22, this.getLocation()[1] + 32);
+				text.drawMethod(drawShape);
+			}
+			
 			@Override
 			public boolean mD(java.awt.Point mousePosition, java.awt.event.MouseEvent e) {
 				return true;
@@ -60,6 +90,20 @@ public class MainMenu implements HardPaneDefineable {
 		};
 		
 		ButtonMulti exitButton = new ButtonMulti(new BufferedImage[]{buttonUpImage, buttonDownImage}) {
+			
+			Text text = new Text(this.getLocation()[0] + 20, this.getLocation()[1], "Exit");
+
+			{
+				text.setAlpha(1);
+				text.setColour(Color.black);
+			}
+
+			@Override
+			public void drawMethod(Graphics2D drawShape) {
+				super.drawMethod(drawShape);
+				text.setLocation(this.getLocation()[0] + 22, this.getLocation()[1] + 32);
+				text.drawMethod(drawShape);
+			}
 			
 			@Override
 			public boolean mD(java.awt.Point mousePosition, java.awt.event.MouseEvent e) {
@@ -85,5 +129,4 @@ public class MainMenu implements HardPaneDefineable {
 		crowd.addButton(bioButton);
 		crowd.addButton(exitButton);
 	}
-
 }

@@ -10,14 +10,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import net.beadsproject.beads.core.AudioContext;
-import net.beadsproject.beads.data.Sample;
-import net.beadsproject.beads.data.SampleManager;
-import net.beadsproject.beads.ugens.Gain;
-import net.beadsproject.beads.ugens.SamplePlayer;
+import watoydoEngine.designObjects.display.Crowd;
 import watoydoEngine.designObjects.display.Displayable;
 import watoydoEngine.designObjects.display.ImageSingle;
 import watoydoEngine.designObjects.display.Text;
+import watoydoEngine.workings.displayActivity.ActivePane;
 
 
 public class TurnProcess {
@@ -213,7 +210,7 @@ public class TurnProcess {
 		storyText.setText(this.getStory());
 
 		if(this.stage > storyLength)
-			System.out.println("STORY DONE");
+			ActivePane.getInstance().changeRootCrowd(new Crowd(new MainMenu()));
 	}
 
 	public void setText(Text storyText) {

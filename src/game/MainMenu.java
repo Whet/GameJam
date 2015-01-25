@@ -89,6 +89,7 @@ public class MainMenu implements HardPaneDefineable {
 			
 			@Override
 			public boolean mD(java.awt.Point mousePosition, java.awt.event.MouseEvent e) {
+				ActivePane.getInstance().changeRootCrowd(new Crowd(new Biography()));
 				return true;
 			};
 			

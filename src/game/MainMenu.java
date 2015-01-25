@@ -1,5 +1,6 @@
 package game;
 
+import game.audio.AudioHandler;
 import game.scenarios.StoreRobbery;
 
 import java.awt.image.BufferedImage;
@@ -18,6 +19,8 @@ import watoydoEngine.workings.displayActivity.ActivePane;
 
 public class MainMenu implements HardPaneDefineable {
 
+	AudioHandler ah;
+	
 	@Override
 	public void load(Crowd crowd) {
 		
@@ -26,6 +29,7 @@ public class MainMenu implements HardPaneDefineable {
 		BufferedImage buttonDownImage = null;
 		
 		ImageSingle background = null;
+		
 		
 		try {
 			titleImageFile = ImageIO.read(ReadWriter.getResourceAsInputStream("buttonPlaceholder.png"));
@@ -84,6 +88,9 @@ public class MainMenu implements HardPaneDefineable {
 		crowd.addButton(startGameButton);
 		crowd.addButton(bioButton);
 		crowd.addButton(exitButton);
+		
+		ah = new AudioHandler();
+		ah.playAudio("audio/title.wav");
 	}
 
 }

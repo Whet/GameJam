@@ -154,6 +154,7 @@ public class TurnProcess {
 				counter++;
 				chars = 0;
 
+				//Any @letter pair besides "@c" can represent an audio clip.
 				String audioPath = "";
 				switch(charArray[i+1]){
 				case '1':

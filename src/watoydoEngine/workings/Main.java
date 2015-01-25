@@ -21,8 +21,8 @@ public class Main{
 	public Main() throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException{
 		
 		ReadWriter.HOME_LOCATION = getClass().getProtectionDomain().getCodeSource().getLocation().getPath();
-		if(ReadWriter.HOME_LOCATION.endsWith("Atrophy.jar"))
-			ReadWriter.HOME_LOCATION = ReadWriter.HOME_LOCATION.substring(0, ReadWriter.HOME_LOCATION.length() - "Atrophy.jar".length());
+		if(ReadWriter.HOME_LOCATION.endsWith("DivineIntervention.jar"))
+			ReadWriter.HOME_LOCATION = ReadWriter.HOME_LOCATION.substring(0, ReadWriter.HOME_LOCATION.length() - "DivineIntervention.jar".length());
 		
 		UIManager.put("nimbusBase", new Color(20,20,20));
 		UIManager.put("nimbusBlueGrey", new Color(50, 50, 50));

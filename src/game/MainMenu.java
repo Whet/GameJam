@@ -1,7 +1,7 @@
 package game;
 
 import game.audio.AudioHandler;
-import game.scenarios.BearAttack;
+import game.scenarios.StoreRobbery;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -67,7 +67,7 @@ public class MainMenu implements HardPaneDefineable {
 			
 			@Override
 			public boolean mD(java.awt.Point mousePosition, java.awt.event.MouseEvent e) {
-				ActivePane.getInstance().changeRootCrowd(new Crowd(new BearAttack()));
+				ActivePane.getInstance().changeRootCrowd(new Crowd(new StoreRobbery()));
 				return true;
 			};
 			

@@ -4,6 +4,7 @@ import game.GameChoiceMenu.GodButton;
 import game.audio.AudioHandler;
 import game.parser.ObjectGodPair;
 import game.parser.Parser;
+import game.scenarios.BearAttack;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -227,7 +228,9 @@ public class TurnProcess {
 		this.stage++;
 		storyText.setText(this.getStory());
 
-		if(this.stage > storyLength)
+		if(this.stage > storyLength && PLAYER_COUNT == 4)
+			ActivePane.getInstance().changeRootCrowd(new Crowd(new BearAttack()));
+		else if(this.stage > storyLength && PLAYER_COUNT == 2)
 			ActivePane.getInstance().changeRootCrowd(new Crowd(new MainMenu()));
 	}
 

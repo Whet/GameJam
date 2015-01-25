@@ -67,7 +67,28 @@ public abstract class GameChoiceMenu implements HardPaneDefineable {
 		int screenWidth = ActivePane.getInstance().getWidth();
 		int screenHeight = ActivePane.getInstance().getHeight();
 		
-		final Text storyText = new Text(screenWidth/2 - 280, 140);
+		final Text storyText = new Text(screenWidth/2 - 280, 140) {
+			
+			private String fullMessage;
+			private StringBuffer sb = new StringBuffer();
+			
+			@Override
+			public void setText(String message) {
+				this.fullMessage = message;
+				this.sb = new StringBuffer();
+			}
+			
+			@Override
+			public void drawMethod(Graphics2D drawShape) {
+				super.setText(sb.toString());
+				super.drawMethod(drawShape);
+				
+				if(sb.length() < fullMessage.length()) {
+					sb.append(fullMessage.toCharArray()[sb.length()]);
+				}
+			}
+			
+		};
 		
 		storyText.setText(getStartText());
 		

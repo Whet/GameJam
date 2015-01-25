@@ -1,5 +1,7 @@
 package game;
 
+import game.audio.AudioHandler;
+
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -42,9 +44,13 @@ public abstract class GameChoiceMenu implements HardPaneDefineable {
 	GodButton god3Image;
 	GodButton god4Image;
 	
+	private AudioHandler ah;
+	
 	public GameChoiceMenu() {
 		
 		int screenWidth = ActivePane.getInstance().getWidth();
+		
+		ah = new AudioHandler();
 		
 		try {
 			textBackdrop = new ImageSingle(ImageIO.read(ReadWriter.getResourceAsInputStream("pinkRectangle.png")));
@@ -223,6 +229,8 @@ public abstract class GameChoiceMenu implements HardPaneDefineable {
 				storyText.setVisible(false);
 				textBackdrop.setVisible(false);
 				
+				ah.playAudio("audio/bertius.wav");
+				
 				final Timer god1Timer = new Timer();
 				god1Timer.schedule(new TimerTask() {
 
@@ -270,6 +278,9 @@ public abstract class GameChoiceMenu implements HardPaneDefineable {
 			}
 			
 			public void startTimer2() {
+				
+				ah.playAudio("audio/ridonculous.wav");
+				
 				final Timer godtimer = new Timer();
 				godtimer.schedule(new TimerTask() {
 
@@ -321,6 +332,7 @@ public abstract class GameChoiceMenu implements HardPaneDefineable {
 					showOptions();
 					return;
 				}
+				ah.playAudio("audio/savina.wav");
 				
 				final Timer godtimer = new Timer();
 				godtimer.schedule(new TimerTask() {
@@ -373,6 +385,9 @@ public abstract class GameChoiceMenu implements HardPaneDefineable {
 					showOptions();
 					return;
 				}
+				
+				ah.playAudio("audio/grabnibus.wav");
+				
 				
 				final Timer godtimer = new Timer();
 				godtimer.schedule(new TimerTask() {

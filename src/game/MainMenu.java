@@ -135,6 +135,6 @@ public class MainMenu implements HardPaneDefineable {
 		crowd.addButton(exitButton);
 		
 		//Switch with title announcement sound clip
-		audioHandler.playAudio("audio/wolfwhistle.wav");
+		audioHandler.playAudio("audio/title.wav");
 	}
 }

@@ -5,21 +5,22 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Iterator;
 import java.util.TreeSet;
 
 
 public class Parser {
 	private ArrayList<Solution> solutions;
 	
-	public static void main(String[] args) {
-		Parser p = new Parser(new File("dummySolution.txt"));
-		ObjectGodPair[] pairs = new ObjectGodPair[4];
-		pairs[0] = new ObjectGodPair(1, 1);
-		pairs[1] = new ObjectGodPair(2, 2);
-		pairs[2] = new ObjectGodPair(3, 3);
-		pairs[3] = new ObjectGodPair(4, 4);
-		System.out.println(p.getStoryLine(pairs));
-	}
+//	public static void main(String[] args) {
+//		Parser p = new Parser(new File("dummySolution.txt"));
+//		ObjectGodPair[] pairs = new ObjectGodPair[4];
+//		pairs[0] = new ObjectGodPair(1, 1);
+//		pairs[1] = new ObjectGodPair(2, 2);
+//		pairs[2] = new ObjectGodPair(3, 3);
+//		pairs[3] = new ObjectGodPair(4, 4);
+//		System.out.println(p.getStoryLine(pairs));
+//	}
 	
 	public Parser(File file) {
 		ArrayList<String> lines = read(file);
@@ -67,7 +68,15 @@ public class Parser {
 				tree.add(ogp);
 				System.out.println(ogp);
 			}
-			if(tree.size() == 4) {
+			
+			System.out.println("Tree contains:" + tree.size());
+			Iterator<ObjectGodPair> iter = tree.iterator();
+			while(iter.hasNext()) {
+				ObjectGodPair p = iter.next();
+				System.out.println("- " + p);
+			}
+			
+			if(tree.size() == pairs.length) {
 				return sol.getStory();
 			}
 		}

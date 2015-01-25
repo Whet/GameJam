@@ -49,7 +49,7 @@ public class BearAttack extends GameChoiceMenu {
 		others.add(choiceButton3);
 		others.add(choiceButton4);
 		
-		turnProcess = new TurnProcess(new God[]{God.chaosvegetables, God.watertreachery}, textBackdrop, 2, others, "solutions.txt");
+		turnProcess = new TurnProcess(new God[]{God.chaosvegetables, God.watertreachery}, textBackdrop, 2, others, "bearsolutions.txt");
 		choiceButton1.setTurnProcess(turnProcess);
 		choiceButton2.setTurnProcess(turnProcess);
 		choiceButton3.setTurnProcess(turnProcess);

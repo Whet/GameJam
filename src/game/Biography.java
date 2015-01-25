@@ -89,6 +89,8 @@ public class Biography implements HardPaneDefineable {
 			
 			private String fullMessage;
 			private StringBuffer sb = new StringBuffer();
+			private int lineLength = 0;
+			private int charPos = 0;
 			
 			{
 				this.setColour(Color.white);
@@ -99,6 +101,8 @@ public class Biography implements HardPaneDefineable {
 			public void setText(String message) {
 				this.fullMessage = message;
 				this.sb = new StringBuffer();
+				this.lineLength = 0;
+				charPos = 0;
 			}
 			
 			@Override
@@ -107,7 +111,17 @@ public class Biography implements HardPaneDefineable {
 				super.drawMethod(drawShape);
 				
 				if(sb.length() < fullMessage.length()) {
-					sb.append(fullMessage.toCharArray()[sb.length()]);
+					
+					if(lineLength > 40 && fullMessage.toCharArray()[charPos] == ' ') {
+						sb.append("@n");
+						lineLength = 0;
+						charPos++;
+					}
+					else {
+						sb.append(fullMessage.toCharArray()[charPos]);
+						lineLength++;
+						charPos++;
+					}
 				}
 			}
 			
@@ -151,21 +165,27 @@ public class Biography implements HardPaneDefineable {
 		
 		switch(god) {
 		case butter:
-			return "BUTTER";
+			return "Some consider Bertius to be a mere human but they couldn’t be more wrong. Most gods like to embellish stories about their grandiose powers to wow their peers and incite jealousy. Bertius does not need to have power of the elements nor control over emotions to assert his dominance. All he needs is his divine stick of butter to smite down his foes with its greasy wrath. Regular folk cower in fear and awe at his lard wielding prowess. He is said to be second to none in butter-based combat.\r\n" + 
+					"People worship his ability to slip and slide (butter aided) out of any situation. They pray to him so that he may bless them with his greasy guile to aid them in their endeavours.";
 		case debauchery:
-			return "DEBAUCHERY";
+			return "Redonkulus, self-proclaimed king of the gods: picture of perfect health and idol of beauty, gluts on the affairs of mortals, implementing his intoxicating seductive influence on all the waking world. With a sip of wine here and a ham leg there, he exerts his powers not when people need him but as he sees fit, leaving the recipients left in a lustful and greedy daze. He can be found lying on his plinth, devouring and drinking in an endless orgy of pleasure.";
 		case fire:
-			return "FIRE";
+			return "Birthed in the raging infernos of a dying star, Savina is revered even among the gods for her fighting ability and her control over the rampant flame. Commonly found in the pantheons swoly temple of iron, she prefers to shoulder her worshippers’ problems, squatting, benching and lifting them repeatedly till her figure is as bulging and radiant as the flames that comprise her flaming hair.\r\n" + 
+					"She is often left with the responsibility of the pantheons annual fireworks display due to her excellence in pyrotechnics, and is a great help when it comes to barbeques in the rain.";
 		case motion:
-			return "MOTION";
+			return "His stinted growth has always left him the butt of the Pantheon’s jokes, yet Grabnibus uses his talents to move whole world’s, sunder great mountains and tickle the feet of the unworthy. With a prod from the finger of his Omnigloves, the result can be a gentle breeze or a sonic boom and he’s ready to repay the teasing that his divine colleagues have dogged him with for eons.";
 		case chaos:
-			return "CHAOS";
+			return "Having his name misspelt when he was young, S’Tan was forced to join the pantheon of gods unlike his younger brother who is king of the underworld. S’Tan is forced to aid humanity using his chaotic powers whether he likes it or not. He still finds time to satiate his thirst for suffering of others by only helping those who pray for his divine assistance.\r\n" + 
+					"	If the suffering of many, aids the situation of one, you can guarantee that S’Tan will be there with his influence, his pride still maimed by the sabotage of his name.";
 		case treachery:
-			return "TREACHERY";
+			return "At the brunch of Bertius Chudley’s 10 billionth birthday, Ridonkulus and Reeki-Teeki longed to steal the recipe for Chudley’s divine butter. Their scheming resulted in the creation of the blackened Brussel Sprout, a devilish veggie conceived in treachery and deceit.\r\n" + 
+					"S’Tan, eager to preserve his muscular form, ate the sprout as he was on his eonly diet. The result was a flatulent cloud of such evil, that Orful was born unto the world,, but his treachery bound  in the heavens to cause help and harm wherever he may please.";
 		case vegetables:
-			return "VEGETABLES";
+			return "Being the god of vegetables; Reeki Teeki is considered by some to be a nuisance, particularly by Ridonkulus who has not eaten a vegetable intentionally in all his godly life. Rikki formed himself of the collective (and often overlooked) conscience of the entire vegetative world.\r\n" + 
+					"A parsnip, a carrot and a throng of parsley later and formed was Reeki-Teeki: defender of fibre, lord of the unintentional bowel-movement, protector of digestive health.  Despite his non-threatening powers, Reeki-Teeki will do all he can to blight the ‘Meat-Walkers’ that roam the land that rightfully belongs to the veggies.";
 		case water:
-			return "WATER";
+			return "There’s a lot of water in the world, and when Aquaria came to be she was forced to take form of the entire world’s water. She couldn’t stand being so spread out that nobody could see her there, until one day she was assisted by Ridonkulus.\r\n" + 
+					"Ridonkulus crafted a corset of holy gold and said it would finally contain her liquid form to something more manageable… At a cost.";
 		case unselected:
 		break;
 		

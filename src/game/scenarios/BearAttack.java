@@ -115,7 +115,7 @@ public class BearAttack extends GameChoiceMenu {
 
 	@Override
 	public String getStartText() {
-		return "Needing a break away from the hustle and bustle of his busy life, Jerry and his wife are on a camping trip to celebrate their anniversary.@nUnfortunately for Jerry, a ravenous grizzly bear is slowly making its way towards his camp with hunger in its eyes.@n\"Oh god, my job as a holistic synergy officer didn't prepare me for this!\"@nDeperate for a solution, he searches his surroundings, then looks to the heavens for divine inspiration.";
+		return "Needing a break away from the hustle and@nbustle of his busy life,@n Jerry and his wife are on@na camping trip to celebrate their anniversary.@nUnfortunately for Jerry, a ravenous grizzly bear@nis slowly making its way towards his camp with@nhunger in its eyes.@n\"Oh god, my job as a holistic synergy officer@ndidn't prepare me for this!\"@nDeperate for a solution, he searches his@nsurroundings, then looks to the heavens for@ndivine inspiration.";
 	}
 
 }

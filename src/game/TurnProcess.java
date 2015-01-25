@@ -7,6 +7,7 @@ import game.parser.Parser;
 import game.scenarios.BearAttack;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -15,6 +16,7 @@ import watoydoEngine.designObjects.display.Crowd;
 import watoydoEngine.designObjects.display.Displayable;
 import watoydoEngine.designObjects.display.ImageSingle;
 import watoydoEngine.designObjects.display.Text;
+import watoydoEngine.io.ReadWriter;
 import watoydoEngine.workings.displayActivity.ActivePane;
 
 
@@ -57,7 +59,11 @@ public class TurnProcess {
 		takenChoices = new ArrayList<>();
 		takenTurns = new ArrayList<>();
 
-		parser = new Parser(new File(file));
+		try {
+			parser = new Parser(ReadWriter.getResourceAsInputStream(file));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
 		audioHandler = new AudioHandler();
 	}
 
@@ -85,7 +91,7 @@ public class TurnProcess {
 			godImages.get(i).setScale(0.3);
 		}
 		for(int i = 0; i < gods.length; i++) {
-			if(PLAYER_COUNT == 1 && gods[i] == currentGod && i + 1 < gods.length) {
+			if(PLAYER_COUNT == 4 && gods[i] == currentGod && i + 1 < gods.length) {
 				currentGod = gods[i + 1];
 
 				godImages.get(i + 1).setScale(godImages.get(i).getScale() + 0.1);
@@ -122,7 +128,6 @@ public class TurnProcess {
 		}
 
 		this.story = this.parser.getStoryLine(pairs);
-		//		this.story = "Roses are red@cViolets are blue@cAnus";
 
 		// Work out how many clicks needed to read story
 		char[] charArray = this.story.toCharArray();

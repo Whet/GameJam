@@ -1,6 +1,7 @@
 package game;
 
 import game.audio.AudioHandler;
+import game.scenarios.BearAttack;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -437,6 +438,9 @@ public abstract class GameChoiceMenu implements HardPaneDefineable {
 			private void showOptions() {
 				
 				god1Image.setScale(0.4);
+				
+				if(GameChoiceMenu.this instanceof BearAttack)
+					god2Image.setScale(0.4);
 				
 				System.out.println("SHOWING OPTIONS");
 				final Timer animationTimer = new Timer();

@@ -154,38 +154,45 @@ public class TurnProcess {
 				counter++;
 				chars = 0;
 
-				if (charArray[i+1] == '1') {
+				String audioPath = "";
+				switch(charArray[i+1]){
+				case '1':
 					i++;
-					audioHandler.playAudio("audio/explosion.wav");
-				} else if (charArray[i+1] == '2')
-				{
+					audioPath = "audio/explosion.wav";
+					break;
+				case '2':
 					i++;
-					audioHandler.playAudio("audio/gunshot.wav");
-				}else if (charArray[i+1] == '3')
-				{
+					audioPath = "audio/gunshot.wav";
+					break;
+				case '3':
 					i++;
-					audioHandler.playAudio("audio/inferno.wav");
-				}else if (charArray[i+1] == '4')
-				{
+					audioPath = "audio/inferno.wav";
+					break;
+				case '4':
 					i++;
-					audioHandler.playAudio("audio/moreglassbreaking.wav");
-				}else if (charArray[i+1] == '5')
-				{
+					audioPath = "audio/moreglassbreaking.wav";
+					break;
+				case '5':
 					i++;
-					audioHandler.playAudio("audio/singleglassbreaking.wav");
-				}else if (charArray[i+1] == '6')
-				{
+					audioPath = "audio/singleglassbreaking.wav";
+					break;
+				case '6':
 					i++;
-					audioHandler.playAudio("audio/splat.wav");
-				}else if (charArray[i+1] == '7')
-				{
+					audioPath = "audio/splat.wav";
+					break;
+				case '7':
 					i++;
-					audioHandler.playAudio("audio/thud.wav");
-				}else if (charArray[i+1] == '8')
-				{
+					audioPath = "audio/thud.wav";
+					break;
+				case '8':
 					i++;
-					audioHandler.playAudio("audio/wolfwhistle.wav");
+					audioPath = "audio/wolfwhistle.wav";
+					break;
 				}
+				if(!audioPath.equals("")) {
+					audioHandler.playAudio(audioPath);
+				}
+				
 			}
 
 			if(chars > MAX_CHARS_PER_LINE && i+1 < charArray.length && charArray[i + 1] == ' ') {
